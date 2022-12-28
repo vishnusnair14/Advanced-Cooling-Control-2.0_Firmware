@@ -49,7 +49,7 @@ void switchRelay(uint8_t _deviceID, bool _state) {
   else if(_deviceID == CEXAH2) _deviceName = "R18";
   else _deviceName = "R0";
 
-  // @_state: ON/1
+  // @_state: ON/1/HIGH
   if(_state == TRIGG_RELAY) {
     if(digitalRead(_deviceID)!=_state) {
       digitalWrite(_deviceID, TRIGG_RELAY);
@@ -61,7 +61,7 @@ void switchRelay(uint8_t _deviceID, bool _state) {
       Serial.println(F(":Be#"));
     }
   }
-  // @_state: OFF/0
+  // @_state: OFF/0/LOW
   else if(_state == RELEASE_RELAY) {
     if(digitalRead(_deviceID) != _state) {
       digitalWrite(_deviceID, RELEASE_RELAY);

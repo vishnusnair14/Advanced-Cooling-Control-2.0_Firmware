@@ -56,7 +56,8 @@ void setup() {
   Serial.println("M101");
 
   // initialize PCF8574 device & pins:
-  Init_PCF8574Module(); 
+  Init_PCF8574Module();
+  delay(1000);
 
   if(DS18B20.init_sensor()) {
     Serial.println(F("M102"));

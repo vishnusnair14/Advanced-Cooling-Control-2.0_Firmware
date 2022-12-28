@@ -64,7 +64,7 @@ void setup() {
   }
   else { 
     Serial.println(F("M103")); 
-    delay(750)
+    delay(750);
   }
   
   // switch ON main power:

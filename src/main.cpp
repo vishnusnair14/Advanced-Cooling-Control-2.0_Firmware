@@ -26,7 +26,8 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define PBT2 A1
 #define CT1 A2
 #define CT2 A3
-#define main_power 3
+#define MainPower 3
+#define SoftResetPin 12
 
 char stdata;
 double TEMP1, TEMP2, TEMP3, TEMP4;
@@ -36,6 +37,8 @@ ds18b20 DS18B20;
 
 // @PROGRMA ONCE BLOCK:
 void setup() {
+  digitalWrite(SoftResetPin, HIGH);
+  delay(100);
   Serial.begin(9600);
   Serial.println("M104");
   delay(1000);
@@ -43,7 +46,8 @@ void setup() {
   delay(2500);
 
   // MCU pin mode definition:
-  pinMode(main_power, OUTPUT);
+  pinMode(MainPower, OUTPUT);
+  pinMode(SoftResetPin, OUTPUT);
   pinMode(PBT1, INPUT);
   pinMode(PBT2, INPUT);
   pinMode(CT1, INPUT);
@@ -62,7 +66,7 @@ void setup() {
   }
   
   // switch ON main power:
-  switchRelay(main_power, HIGH);
+  switchRelay(MainPower, HIGH);
 }
 
 
@@ -75,7 +79,11 @@ void loop() {
     else if(stdata == 'a'){
       digitalWrite(LED_BUILTIN, LOW);
     }
+    else if(stdata == 'r'){
+      digitalWrite(SoftResetPin, LOW);
+    }
   }
+
   TEMP1 = NTC.GetTemperature(analogRead(PBT2));  // NTC-S1 @peltier cool side [for thermoele.dev control]
   TEMP2 = NTC.GetTemperature(analogRead(PBT1));  // NTC-S2 @peltier hot side [for coolant fan control]
   TEMP3 = NTC.GetTemperature(analogRead(CT1));

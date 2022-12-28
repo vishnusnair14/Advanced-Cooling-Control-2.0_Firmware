@@ -59,10 +59,12 @@ void setup() {
   Init_PCF8574Module(); 
 
   if(DS18B20.init_sensor()) {
-    Serial.println(F("M102")); 
+    Serial.println(F("M102"));
+    delay(750);
   }
   else { 
     Serial.println(F("M103")); 
+    delay(750)
   }
   
   // switch ON main power:

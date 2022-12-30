@@ -22,7 +22,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #include <RelayControl.h>
 
 // mapping of peltier sensors:
-#define PBT1 A0  //PBT: Peltier Block Temperature(1)(2)
+#define PBT1 A0  // PBT: Peltier Block Temperature(1)(2)
 #define PBT2 A1
 #define CT1 A2
 #define CT2 A3
@@ -42,7 +42,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("M104");
   delay(1000);
-  Serial.println("Initializing CPU Core...");
+  Serial.println(F("Initializing CPU Core..."));
   delay(2500);
 
   // MCU pin mode definition:

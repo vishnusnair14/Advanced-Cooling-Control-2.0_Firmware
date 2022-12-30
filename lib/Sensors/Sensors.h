@@ -63,7 +63,7 @@ class ds18b20 {
   public : bool init_sensor() {
     sensors.begin();
     DS_INIT_FLAG = true;
-    Serial.println("S102");
+    Serial.println("S102");   // S102: "Pre-initialised DS18B20 sensors"
     return true;
   }
 
@@ -78,7 +78,7 @@ class ds18b20 {
     }
     else {
       init_sensor();
-      Serial.println(F("S101"));
+      Serial.println(F("S101"));  // S101: "Auto initialised DS18B20 sensors"
     }
   }
 

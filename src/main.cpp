@@ -53,18 +53,18 @@ void setup() {
   pinMode(CT1, INPUT);
   pinMode(CT2, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.println("M101");
+  Serial.println("M101");   // M101: "MCU I/O pin modes initiated"
 
   // initialize PCF8574 device & pins:
   Init_PCF8574Module();
   delay(1000);
 
   if(DS18B20.init_sensor()) {
-    Serial.println(F("M102"));
+    Serial.println(F("M102"));   // M102: "initiated DS18B20 sensors"
     delay(750);
   }
   else { 
-    Serial.println(F("M103")); 
+    Serial.println(F("M103"));  // M103: "Unable to initiated DS18B20"
     delay(750);
   }
   

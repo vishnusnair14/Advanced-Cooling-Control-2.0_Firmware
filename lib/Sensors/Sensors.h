@@ -11,7 +11,7 @@ This library also supports with one-wire protocol sensors. Respective functions
 returns temperature(in C) based on respective analog signals recieved. 
 
 [vishnus_technologies (C) 2022]
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 */
 
 #include <OneWire.h>
@@ -34,7 +34,7 @@ returns temperature(in C) based on respective analog signals recieved.
 OneWire oneWire(ONEWIRE_PORT);	
 DallasTemperature sensors(&oneWire);
 
-bool INIT_FLAG = 0;
+bool DS_INIT_FLAG = false;
 float tempC, DTEMP_X, DTEMP_Y, DTEMP_Z, DTEMP_E;
 double T0 = 25 + 273.15; 
 
@@ -62,13 +62,13 @@ class ntc10k {
 class ds18b20 {
   public : bool init_sensor() {
     sensors.begin();
-    INIT_FLAG = 1;
+    DS_INIT_FLAG = true;
     Serial.println("S102");
-    return EXIT_SUCCESS;
+    return true;
   }
 
   public : void GetTempByAddr() {
-    if(INIT_FLAG) {
+    if(DS_INIT_FLAG == true) {
       sensors.requestTemperatures();
       DTEMP_X = getTemp(X_MOT_SA);
       DTEMP_Y = getTemp(Y_MOT_SA);

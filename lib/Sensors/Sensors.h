@@ -16,7 +16,7 @@ returns temperature(in C) based on respective analog signals recieved.
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <DS18B20_AddrDir.h>
+#include <DS18B20_AddressMap.h>
 
 #define ONEWIRE_PORT 2  // for DS18B20 devices
 #define RT0 10000
@@ -74,7 +74,7 @@ class ds18b20 {
       DTEMP_Y = getTemp(Y_MOT_SA);
       DTEMP_Z = getTemp(Z_MOT_SA);
       DTEMP_E = getTemp(E_MOT_SA);
-      Serial.println("D"+String(DTEMP_X)+"X"+String(DTEMP_Y)+"Y"+String(DTEMP_Z)+"Z"+String(DTEMP_E)+"E");
+      Serial.println((String)"D"+DTEMP_X+"X"+DTEMP_Y+"Y"+DTEMP_Z+"Z"+DTEMP_E+"E");
     }
     else {
       init_sensor();

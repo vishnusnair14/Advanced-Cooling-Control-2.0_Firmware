@@ -27,9 +27,9 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define CT1 A2
 #define CT2 A3
 #define MainPower 3
-#define SoftResetPin 12
+#define softResetPin 12
 
-char stdata;
+char serialData;
 double TEMP1, TEMP2, TEMP3, TEMP4;
 
 ntc10k NTC;
@@ -37,7 +37,7 @@ ds18b20 DS18B20;
 
 // @PROGRMA ONCE BLOCK:
 void setup() {
-  digitalWrite(SoftResetPin, HIGH);
+  digitalWrite(softResetPin, HIGH);
   delay(100);
   Serial.begin(9600);
   Serial.println("M104");
@@ -47,7 +47,7 @@ void setup() {
 
   // MCU pin mode definition:
   pinMode(MainPower, OUTPUT);
-  pinMode(SoftResetPin, OUTPUT);
+  pinMode(softResetPin, OUTPUT);
   pinMode(PBT1, INPUT);
   pinMode(PBT2, INPUT);
   pinMode(CT1, INPUT);
@@ -75,15 +75,15 @@ void setup() {
 
 void loop() {
   if(Serial.available()>0){
-    stdata = Serial.read();
-    if(stdata == 'A'){
+    serialData = Serial.read();
+    if(serialData == 'A'){
       digitalWrite(LED_BUILTIN, HIGH);
     }
-    else if(stdata == 'a'){
+    else if(serialData == 'a'){
       digitalWrite(LED_BUILTIN, LOW);
     }
-    else if(stdata == 'r'){
-      digitalWrite(SoftResetPin, LOW);
+    else if(serialData == 'r'){
+      digitalWrite(softResetPin, LOW);
     }
   }
 
@@ -91,7 +91,7 @@ void loop() {
   TEMP2 = NTC.GetTemperature(analogRead(PBT1));  // NTC-S2 @peltier hot side [for coolant fan control]
   TEMP3 = NTC.GetTemperature(analogRead(CT1));
   TEMP4 = NTC.GetTemperature(analogRead(CT2));
-  Serial.println((String)"T"+String(TEMP1)+"A"+String(TEMP2)+"B"+String(TEMP3)+"C"+String(TEMP4)+"D");
+  Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
   NTC_CS(TEMP1);
   NTC_HS(TEMP2);

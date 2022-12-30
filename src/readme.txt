@@ -1,6 +1,6 @@
 main.cpp
 1. M101 -> "[MCU I/O pin modes initiated]"
-2. M102 -> "[initiated DS18B20]"
+2. M102 -> "[DS18B20 sensors initiated]"
 3. M103 -> "[unable to initiated DS18B20]"
 
 ---------------------------------------------------------------
@@ -14,7 +14,7 @@ PCF8547_IOEXP.h
 ---------------------------------------------------------------
 
 Sensors.h
-1. S101 -> "[auto initialised DS18B20 sensors]"
+1. S101 -> "[Auto initialised DS18B20 sensors]"
 2. S102 -> "[Pre-initialised DS18B20 sensors]"
 
 ---------------------------------------------------------------

@@ -21,12 +21,11 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #include <Sensors.h>
 #include <RelayControl.h>
 
-// mapping of peltier sensors:
-#define PBT1 A0  // PBT: Peltier Block Temperature(1)(2)
+#define PBT1 A0
 #define PBT2 A1
 #define CT1 A2
 #define CT2 A3
-#define MainPower 3
+#define mainPower 3
 #define softResetPin 12
 
 char serialData;
@@ -46,7 +45,7 @@ void setup() {
   delay(2500);
 
   // MCU pin mode definition:
-  pinMode(MainPower, OUTPUT);
+  pinMode(mainPower, OUTPUT);
   pinMode(softResetPin, OUTPUT);
   pinMode(PBT1, INPUT);
   pinMode(PBT2, INPUT);
@@ -60,7 +59,7 @@ void setup() {
   delay(1000);
 
   if(DS18B20.init_sensor()) {
-    Serial.println(F("M102"));   // M102: "initiated DS18B20 sensors"
+    Serial.println(F("M102"));   // M102: "DS18B20 sensors initiated"
     delay(750);
   }
   else { 
@@ -69,7 +68,7 @@ void setup() {
   }
   
   // switch ON main power:
-  switchRelay(MainPower, HIGH);
+  switchRelay(mainPower, HIGH);
 }
 
 

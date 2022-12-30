@@ -36,7 +36,7 @@ DallasTemperature sensors(&oneWire);
 
 bool DS_INIT_FLAG = false;
 float tempC, DTEMP_X, DTEMP_Y, DTEMP_Z, DTEMP_E;
-double T0 = 25 + 273.15; 
+double T0 = 25 + 273.15;
 
 
 // NTC10k sensor class:

@@ -38,6 +38,7 @@ set your PCF8574's address accordingly:
 7. 110 = 0x26
 8. 111 = 0x27
 ---------------------------------------
+
 define PCF8574's module address below:  */
 #define PCF8574_DEVICE_ADDRESS 0x21
 

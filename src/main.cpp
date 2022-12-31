@@ -26,7 +26,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define CT1 A2
 #define CT2 A3
 #define mainPower 3
-#define ExhaustFanPWMPin 9
+#define ExhFanPwmOutPin 9
 #define softResetPin 12
 
 double TEMP1, TEMP2, TEMP3, TEMP4;
@@ -36,12 +36,17 @@ String serialData;
 ntc10k NTC;
 ds18b20 DS18B20;
 
+
 // @PROGRMA ONCE BLOCK:
 void setup() {
   digitalWrite(softResetPin, HIGH);
   delay(100);
+  pinMode(ExhFanPwmOutPin, OUTPUT);
+  delay(100);
+  analogWrite(ExhFanPwmOutPin, 0);
+  delay(100);
   Serial.begin(9600);
-  Serial.println("");
+  //Serial.println("");
   Serial.println("M104");
   delay(1000);
   Serial.println(F("Initializing CPU Core..."));
@@ -76,50 +81,6 @@ void setup() {
 
 
 void loop() {
-  /*
-  while (Serial.available() > 0) {
-    static char message[MAX_MESSAGE_LENGTH];
-    static unsigned int message_pos = 0;
-    char inByte = Serial.read();
-
-    if ( inByte != '\n' && (message_pos < MAX_MESSAGE_LENGTH - 1) ) {
-      message[message_pos] = inByte;
-      message_pos++;
-    }
-    else 
-    {
-      message[message_pos] = '\0';
-      Serial.println(message);
-      if(message[0] == 's') 
-      {
-        for(int y=0;y<12;y++)
-        {
-          if(message[y] == 'd')
-          {
-            LastMIndex = y; 
-            MEssage = (String)message;
-            pwm = MEssage.substring(1,LastMIndex).toInt();
-            Serial.print("RPM: "); Serial.println(pwm);
-            if(pwm>=0) {
-              analogWrite(ExhaustFanPWMPin, pwm);
-            }
-            }
-          }
-        }
-      else if(message[0] == 'r') {
-        Serial.print("> PWM: "); Serial.println(pwm);
-        digitalWrite(softResetPin, LOW);
-      }
-     else if(message[0] == 'A'){
-      digitalWrite(LED_BUILTIN, HIGH);
-    }
-    else if(message[0] == 'a'){
-      digitalWrite(LED_BUILTIN, LOW);
-      message_pos = 0;
-    }
-  }
-  }
- */
   if(Serial.available()>0){
     // reads arduino serial buffer until '\n':
     serialData = Serial.readStringUntil('\n');
@@ -139,7 +100,7 @@ void loop() {
     if(serialData[0] == 's') {
       pwm = serialData.substring(1,serialData.indexOf('d')).toInt();
       //Serial.print("PWM: ") Serial.println(pwm);
-      analogWrite(ExhaustFanPWMPin, pwm);
+      analogWrite(ExhFanPwmOutPin, pwm);
     }
   }
 
@@ -147,6 +108,7 @@ void loop() {
   TEMP2 = NTC.GetTemperature(analogRead(PBT1));  // NTC-S2 @peltier hot side [for coolant fan control]
   TEMP3 = NTC.GetTemperature(analogRead(CT1));
   TEMP4 = NTC.GetTemperature(analogRead(CT2));
+  // prints final temperature data on serial [encoded]:
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
   NTC_CS(TEMP1);

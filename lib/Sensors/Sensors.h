@@ -18,7 +18,7 @@ returns temperature(in C) based on respective analog signals recieved.
 #include <DallasTemperature.h>
 #include <DS18B20_AddressMap.h>
 
-#define ONEWIRE_PORT 2  // for DS18B20 devices
+#define ONEWIRE_PORT 7  // for DS18B20 devices
 #define RT0 10000
 #define B 3977 
 #define VCC 5

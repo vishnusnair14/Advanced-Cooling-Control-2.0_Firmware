@@ -5,7 +5,7 @@ ADVANCED COOLING CONTROL ALGORITHM (For Ender-3 PRO)
 ----------------------------------------------------
 
 This is an intelligent algorithm, specially desgined for 3d printers
-(Ender-3 PRO). This algorithm adds more saftey to your printer.By 
+(Ender-3 PRO). This algorithm adds more saftey to your printer.By
 installing this software/algorithm you can leave your printer unattended.
 It has several advanced saftey features. You can run your printer for
 high temperature prints also. Has advanced saftey for the stepper motor
@@ -13,7 +13,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 
 [vishnus_technologies (C) 2022]
 [20-DECEMBER-2022 08:46PM]
--------------------------------------------------------------------------
+------------------------------------------------------------------------
 */
 
 #include <Arduino.h>
@@ -26,10 +26,12 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define CT1 A2
 #define CT2 A3
 #define mainPower 3
+#define ExhaustFanPWMPin 9
 #define softResetPin 12
 
-char serialData;
 double TEMP1, TEMP2, TEMP3, TEMP4;
+uint8_t pwm = 0;
+String serialData;
 
 ntc10k NTC;
 ds18b20 DS18B20;
@@ -39,6 +41,7 @@ void setup() {
   digitalWrite(softResetPin, HIGH);
   delay(100);
   Serial.begin(9600);
+  Serial.println("");
   Serial.println("M104");
   delay(1000);
   Serial.println(F("Initializing CPU Core..."));
@@ -73,16 +76,70 @@ void setup() {
 
 
 void loop() {
-  if(Serial.available()>0){
-    serialData = Serial.read();
-    if(serialData == 'A'){
+  /*
+  while (Serial.available() > 0) {
+    static char message[MAX_MESSAGE_LENGTH];
+    static unsigned int message_pos = 0;
+    char inByte = Serial.read();
+
+    if ( inByte != '\n' && (message_pos < MAX_MESSAGE_LENGTH - 1) ) {
+      message[message_pos] = inByte;
+      message_pos++;
+    }
+    else 
+    {
+      message[message_pos] = '\0';
+      Serial.println(message);
+      if(message[0] == 's') 
+      {
+        for(int y=0;y<12;y++)
+        {
+          if(message[y] == 'd')
+          {
+            LastMIndex = y; 
+            MEssage = (String)message;
+            pwm = MEssage.substring(1,LastMIndex).toInt();
+            Serial.print("RPM: "); Serial.println(pwm);
+            if(pwm>=0) {
+              analogWrite(ExhaustFanPWMPin, pwm);
+            }
+            }
+          }
+        }
+      else if(message[0] == 'r') {
+        Serial.print("> PWM: "); Serial.println(pwm);
+        digitalWrite(softResetPin, LOW);
+      }
+     else if(message[0] == 'A'){
       digitalWrite(LED_BUILTIN, HIGH);
     }
-    else if(serialData == 'a'){
+    else if(message[0] == 'a'){
+      digitalWrite(LED_BUILTIN, LOW);
+      message_pos = 0;
+    }
+  }
+  }
+ */
+  if(Serial.available()>0){
+    // reads arduino serial buffer until '\n':
+    serialData = Serial.readStringUntil('\n');
+
+    if(serialData == "A") {
+      digitalWrite(LED_BUILTIN, HIGH);
+    }
+    else if(serialData == "a") {
       digitalWrite(LED_BUILTIN, LOW);
     }
-    else if(serialData == 'r'){
+    else if(serialData == "r") {
       digitalWrite(softResetPin, LOW);
+    }
+
+    // decodes pwm value from software:
+    // ex data:[s245d] or [s122d] | [pwm: 245, 122]
+    if(serialData[0] == 's') {
+      pwm = serialData.substring(1,serialData.indexOf('d')).toInt();
+      //Serial.print("PWM: ") Serial.println(pwm);
+      analogWrite(ExhaustFanPWMPin, pwm);
     }
   }
 

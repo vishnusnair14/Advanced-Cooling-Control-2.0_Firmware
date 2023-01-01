@@ -26,39 +26,41 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define CT1 A2
 #define CT2 A3
 #define mainPower 3
-#define ExhFanPwmOutPin 9
+#define EXH_FAN_PWM_PIN 9
 #define softResetPin 12
 
-double TEMP1, TEMP2, TEMP3, TEMP4;
 uint8_t pwm = 0;
+double TEMP1, TEMP2, TEMP3, TEMP4;
 String serialData;
 
 ntc10k NTC;
 ds18b20 DS18B20;
 
-
-// @PROGRMA ONCE BLOCK:
+// UNO INITIAL SETUP BLOCK:
 void setup() {
   digitalWrite(softResetPin, HIGH);
   delay(100);
-  pinMode(ExhFanPwmOutPin, OUTPUT);
+
+  pinMode(EXH_FAN_PWM_PIN, OUTPUT);
   delay(100);
-  analogWrite(ExhFanPwmOutPin, 0);
+  analogWrite(EXH_FAN_PWM_PIN, 0);
   delay(100);
+  
+  // initalize serial monitor:
   Serial.begin(9600);
-  //Serial.println("");
-  Serial.println("M104");
-  delay(1000);
+  Serial.println("M104"); 
+  delay(100);
+
   Serial.println(F("Initializing CPU Core..."));
   delay(2500);
 
   // MCU pin mode definition:
   pinMode(mainPower, OUTPUT);
-  pinMode(softResetPin, OUTPUT);
   pinMode(PBT1, INPUT);
   pinMode(PBT2, INPUT);
   pinMode(CT1, INPUT);
   pinMode(CT2, INPUT);
+  pinMode(softResetPin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.println("M101");   // M101: "MCU I/O pin modes initiated"
 
@@ -100,7 +102,7 @@ void loop() {
     if(serialData[0] == 's') {
       pwm = serialData.substring(1,serialData.indexOf('d')).toInt();
       //Serial.print("PWM: ") Serial.println(pwm);
-      analogWrite(ExhFanPwmOutPin, pwm);
+      analogWrite(EXH_FAN_PWM_PIN, pwm);
     }
   }
 

@@ -13,7 +13,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 
 [vishnus_technologies (C) 2022]
 [20-DECEMBER-2022 08:46PM]
-------------------------------------------------------------------------
+-------------------------------------------------------------------------
 */
 
 #include <Arduino.h>
@@ -25,7 +25,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define PBT2 A1
 #define CT1 A2
 #define CT2 A3
-#define mainPower 3
+#define MAIN_POWER 3
 #define EXH_FAN_PWM_PIN 9
 #define SOFT_REST_PIN 12
 
@@ -55,7 +55,7 @@ void setup() {
   delay(2500);
 
   // MCU pin mode definition:
-  pinMode(mainPower, OUTPUT);
+  pinMode(MAIN_POWER, OUTPUT);
   pinMode(PBT1, INPUT);
   pinMode(PBT2, INPUT);
   pinMode(CT1, INPUT);
@@ -78,7 +78,7 @@ void setup() {
   }
   
   // switch ON main power:
-  switchRelay(mainPower, HIGH);
+  switchRelay(MAIN_POWER, HIGH);
 }
 
 

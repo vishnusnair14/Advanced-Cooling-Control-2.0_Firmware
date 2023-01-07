@@ -98,9 +98,9 @@ void loop() {
     }
 
     // decodes pwm value from software:
-    // ex data:[s245d] or [s122d] | [pwm: 245, 122]
+    // ex data:[s245] or [s122] | [pwm: 245, 122]
     if(serialData[0] == 's') {
-      pwm = serialData.substring(1,serialData.indexOf('d')).toInt();
+      pwm = serialData.substring(1).toInt();
       //Serial.print("PWM: ") Serial.println(pwm);
       analogWrite(EXH_FAN_PWM_PIN, pwm);
     }

@@ -26,7 +26,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define CT1 A2
 #define CT2 A3
 #define MAIN_POWER 3
-#define EXH_FAN_PWM_PIN 9
+#define EXHFAN_PWM_PIN 9
 #define SOFT_REST_PIN 12
 
 uint8_t pwm = 0;
@@ -41,9 +41,9 @@ void setup() {
   digitalWrite(SOFT_REST_PIN, HIGH);
   delay(100);
 
-  pinMode(EXH_FAN_PWM_PIN, OUTPUT);
+  pinMode(EXHFAN_PWM_PIN, OUTPUT);
   delay(100);
-  analogWrite(EXH_FAN_PWM_PIN, 0);
+  analogWrite(EXHFAN_PWM_PIN, 0);
   delay(100);
   
   // initalize serial monitor:
@@ -102,7 +102,7 @@ void loop() {
     if(serialData[0] == 's') {
       pwm = serialData.substring(1).toInt();
       //Serial.print("PWM: ") Serial.println(pwm);
-      analogWrite(EXH_FAN_PWM_PIN, pwm);
+      analogWrite(EXHFAN_PWM_PIN, pwm);
     }
   }
 

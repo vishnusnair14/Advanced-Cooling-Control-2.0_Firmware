@@ -27,7 +27,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define CT2 A3
 #define mainPower 3
 #define EXH_FAN_PWM_PIN 9
-#define softResetPin 12
+#define SOFT_REST_PIN 12
 
 uint8_t pwm = 0;
 double TEMP1, TEMP2, TEMP3, TEMP4;
@@ -38,7 +38,7 @@ ds18b20 DS18B20;
 
 // UNO INITIAL SETUP BLOCK:
 void setup() {
-  digitalWrite(softResetPin, HIGH);
+  digitalWrite(SOFT_REST_PIN, HIGH);
   delay(100);
 
   pinMode(EXH_FAN_PWM_PIN, OUTPUT);
@@ -60,7 +60,7 @@ void setup() {
   pinMode(PBT2, INPUT);
   pinMode(CT1, INPUT);
   pinMode(CT2, INPUT);
-  pinMode(softResetPin, OUTPUT);
+  pinMode(SOFT_REST_PIN, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.println("M101");   // M101: "MCU I/O pin modes initiated"
 
@@ -94,7 +94,7 @@ void loop() {
       digitalWrite(LED_BUILTIN, LOW);
     }
     else if(serialData == "r") {
-      digitalWrite(softResetPin, LOW);
+      digitalWrite(SOFT_REST_PIN, LOW);
     }
 
     // decodes pwm value from software:

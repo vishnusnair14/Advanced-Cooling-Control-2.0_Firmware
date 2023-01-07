@@ -77,7 +77,7 @@ void switchRelay(uint8_t _deviceID, bool _state) {
 
 // [RCS-1] Thermoelectric devices control:
 // (for NTC-S1 @peltier cool side)
-void NTC_CS(int _temp1) {
+void PELTIER_CONTROL(int _temp1) {
   if(_temp1<LOW_TEMP) {
     switchRelay(PELTIER1, RELEASE_RELAY);
     switchRelay(PELTIER2, RELEASE_RELAY);
@@ -94,7 +94,7 @@ void NTC_CS(int _temp1) {
 
 // [RCS-2] Coolant fans control:
 // (for NTC-S2 @peltier hot side)
-void NTC_HS(int _temp0) {
+void RAD_FAN_CONTROL(int _temp0) {
   if(_temp0<20) {
     switchRelay(FLOOD_COOLANT_FAN, RELEASE_RELAY);
   }

@@ -20,6 +20,7 @@ void normalBeep(uint16_t _freq, uint8_t _duration, uint16_t _interval);
 void emergencyBeep(uint16_t _freq, uint8_t _duration, uint16_t _interval);
 void criticalBeep(uint16_t _freq, uint8_t _duration, uint16_t _interval);
 
+
 // normalBeep(uint16_t frequency, uint16_t delay(ms))
 void normalBeep(uint16_t _freq, uint8_t _duration, uint16_t _interval) {
   if(_duration == 0) {

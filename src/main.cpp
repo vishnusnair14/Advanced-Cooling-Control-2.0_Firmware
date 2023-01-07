@@ -113,7 +113,7 @@ void loop() {
   // prints final temperature data on serial [encoded]:
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
-  NTC_CS(TEMP1);
-  NTC_HS(TEMP2);
+  PELTIER_CONTROL(TEMP1);
+  RAD_FAN_CONTROL(TEMP2);
   delay(1000);
 }

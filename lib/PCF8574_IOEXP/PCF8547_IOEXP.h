@@ -24,7 +24,6 @@ arduino environment.
 #define HSWP P4
 #define CEXAH1 P5
 #define CEXAH2 P6
-int nDevices;
 
 /* ------------------------------------
 set your PCF8574's address accordingly:
@@ -42,10 +41,10 @@ set your PCF8574's address accordingly:
 define PCF8574's module address below:  */
 #define PCF8574_DEVICE_ADDRESS 0x21
 
-// starts PCF8574 class
+// Initiates PCF8574 class
 PCF8574 pcf8574(PCF8574_DEVICE_ADDRESS);
 
-// pin initiator for PCF8574:
+// pin initiator/beginner for PCF8574:
 void Init_PCF8574Module() {
   pcf8574.pinMode(PE1, OUTPUT);
   pcf8574.pinMode(PE2, OUTPUT);

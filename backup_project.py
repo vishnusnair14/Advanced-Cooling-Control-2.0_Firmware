@@ -1,5 +1,7 @@
 # backup_project.py
 
+# [Part of ADVANCED COOLING CONTROL ALGORITHM]
+
 ''' Python code for backup, vscode current workspace directory 
 	  this code will backup all the folder and subfolder of current
 	  file's directory. Paste this script to the directory whose

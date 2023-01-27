@@ -25,7 +25,7 @@ arduino environment.
 #define PE2 P1
 #define PE3 P2
 #define PE4 P3
-#define AC_FAN P4
+#define AC_BFAN P4
 #define RAD_FAN P5
 #define HSWP P6
 #define CSWP P7
@@ -62,12 +62,12 @@ PCF8574 DRCM1(DRCM1_IOEXP_ADDR);
 PCF8574 DRCM2(DRCM2_IOEXP_ADDR);
 
 // pin initiator/beginner for PCF8574 [DRCM#1]:
-void Init_DRCM1_IEM() {
+void init_DRCM1_IEM() {
   DRCM1.pinMode(PE1, OUTPUT);
   DRCM1.pinMode(PE2, OUTPUT);
   DRCM1.pinMode(PE3, OUTPUT);
   DRCM1.pinMode(PE4, OUTPUT);
-  DRCM1.pinMode(AC_FAN, OUTPUT);
+  DRCM1.pinMode(AC_BFAN, OUTPUT);
   DRCM1.pinMode(RAD_FAN, OUTPUT);
   DRCM1.pinMode(HSWP, OUTPUT);
   DRCM1.pinMode(CSWP, OUTPUT);
@@ -82,7 +82,7 @@ void Init_DRCM1_IEM() {
 }
 
 // pin initiator/beginner for PCF8574 [DRCM#2]:
-void Init_DRCM2_IEM() {
+void init_DRCM2_IEM() {
   DRCM2.pinMode(CEXAH1_IN, OUTPUT);
   DRCM2.pinMode(CEXAH1_OUT, OUTPUT);
   DRCM2.pinMode(CEXAH2_IN, OUTPUT);

@@ -33,7 +33,7 @@ uint8_t pwm = 0;
 double TEMP1, TEMP2, TEMP3, TEMP4;
 String serialData;
 
-ntc10k NTC;
+ntc10k NTC10K;
 ds18b20 DS18B20;
 
 // UNO INITIAL SETUP BLOCK:
@@ -62,14 +62,15 @@ void setup() {
   pinMode(SOFT_REST_PIN, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.println("M101");   // M101: "MCU I/O pin modes initiated"
-
+/*
   // initialize DRCM1 device & pins:
-  Init_DRCM1_IEM();
+  init_DRCM1_IEM();
   delay(1000);
 
   // initialize DRCM2 device & pins:
-  Init_DRCM2_IEM();
+  init_DRCM2_IEM();
   delay(1000);
+  */
 
   if(DS18B20.init_sensor()) {
     Serial.println(F("M102"));   // M102: "DS18B20 sensors initiated"
@@ -106,14 +107,13 @@ void loop() {
     }
   }
 
-  TEMP1 = NTC.GetTemperature(analogRead(PBT2));  // NTC-S1 @peltier cool side [for thermoele.dev control]
-  TEMP2 = NTC.GetTemperature(analogRead(PBT1));  // NTC-S2 @peltier hot side [for coolant fan control]
-  TEMP3 = NTC.GetTemperature(analogRead(CT1));
-  TEMP4 = NTC.GetTemperature(analogRead(CT2));
-  // prints final temperature data on serial [encoded]:
+  TEMP1 = NTC10K.GetTemperature(analogRead(PBT2));  // NTC10K-S1 @peltier cool side [for thermoele.dev control]
+  TEMP2 = NTC10K.GetTemperature(analogRead(PBT1));  // NTC10K-S2 @peltier hot side [for coolant fan control]
+  TEMP3 = NTC10K.GetTemperature(analogRead(CT1));
+  TEMP4 = NTC10K.GetTemperature(analogRead(CT2));
+  // prints final temperature data on serial ~[in encoded format]:
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
   PELTIER_CONTROL(TEMP1);
-  //RAD_FAN_CONTROL(TEMP2);
   delay(1000);
 }

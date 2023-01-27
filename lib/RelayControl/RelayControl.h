@@ -21,7 +21,7 @@ Mainly it control two independent RCS(s), named RCS-1, RCS-2.
 #define PELTIER2 PE2
 #define PELTIER3 PE3
 #define PELTIER4 PE4
-#define AC_BLOWERFAN AC_FAN
+#define AC_BLOWERFAN AC_BFAN
 #define RADIATOR_FAN RAD_FAN
 #define HS_WATERPUMP HSWP
 #define CS_WATERPUMP CSWP
@@ -55,7 +55,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
   else if(_deviceID == PE2) _deviceName = "R12";
   else if(_deviceID == PE3) _deviceName = "R13";
   else if(_deviceID == PE4) _deviceName = "R14";
-  else if(_deviceID == AC_FAN) _deviceName = "R15";
+  else if(_deviceID == AC_BFAN) _deviceName = "R15";
   else if(_deviceID == RAD_FAN) _deviceName = "R16";
   else if(_deviceID == HSWP) _deviceName = "R17";
   else if(_deviceID == CSWP) _deviceName = "R18";
@@ -76,11 +76,11 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
     if(digitalRead(_deviceID)!=_state) {
       digitalWrite(_deviceID, TRIGG_RELAY);
       Serial.print(_deviceName);
-      Serial.println(F(":Ae#"));
+      Serial.println(F(":An#"));
     }
     else if(digitalRead(_deviceID) == _state) {
       Serial.print(_deviceName);
-      Serial.println(F(":Be#"));
+      Serial.println(F(":Bn#"));
     }
   }
   // @_state: OFF/0/LOW

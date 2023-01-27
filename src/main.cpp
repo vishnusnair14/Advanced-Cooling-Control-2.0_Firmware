@@ -25,7 +25,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define PBT2 A1
 #define CT1 A2
 #define CT2 A3
-#define MAIN_POWER 3
+//#define MAIN_POWER 3
 #define EXHFAN_PWM_PIN 9
 #define SOFT_REST_PIN 12
 
@@ -55,7 +55,6 @@ void setup() {
   delay(2500);
 
   // MCU pin mode definition:
-  pinMode(MAIN_POWER, OUTPUT);
   pinMode(PBT1, INPUT);
   pinMode(PBT2, INPUT);
   pinMode(CT1, INPUT);
@@ -64,8 +63,12 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.println("M101");   // M101: "MCU I/O pin modes initiated"
 
-  // initialize PCF8574 device & pins:
-  Init_PCF8574Module();
+  // initialize DRCM1 device & pins:
+  Init_DRCM1_IEM();
+  delay(1000);
+
+  // initialize DRCM2 device & pins:
+  Init_DRCM2_IEM();
   delay(1000);
 
   if(DS18B20.init_sensor()) {
@@ -76,9 +79,6 @@ void setup() {
     Serial.println(F("M103"));  // M103: "Unable to initiated DS18B20"
     delay(750);
   }
-  
-  // switch ON main power:
-  switchRelay(MAIN_POWER, HIGH);
 }
 
 
@@ -114,6 +114,6 @@ void loop() {
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
   PELTIER_CONTROL(TEMP1);
-  RAD_FAN_CONTROL(TEMP2);
+  //RAD_FAN_CONTROL(TEMP2);
   delay(1000);
 }

@@ -20,7 +20,7 @@ returns temperature(in C) based on respective analog signals recieved.
 
 #define ONEWIRE_PORT 7  // for DS18B20 devices
 #define RT0 10000
-#define B 3977 
+#define B 3977
 #define VCC 5
 #define R 10000
 

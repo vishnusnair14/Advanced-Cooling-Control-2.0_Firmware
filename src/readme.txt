@@ -6,10 +6,13 @@ main.cpp
 ---------------------------------------------------------------
 
 PCF8547_IOEXP.h
-1. P201 -> "[Initializing PCF8574 module]"
-2. P202 -> "[Successfully initialised PCF8574 module]"
-3. P203 -> "[PCF8574 I/O pins initiated]"
-4. P204 -> "[PCF8574 device error!]"
+1. P201 -> [Initializing PCF8574 module]
+2. P202 -> [Successfully initialised DRCM module #1]
+3. P203 -> [DRCM1 I/O pins initiated]
+4. P204 -> [DRCM2 I/O pins initiated]
+5. P205 -> [Successfully initialised DRCM module #2]
+6. P206 -> [DRCM#1 device error!]
+7. P207 -> [DRCM#2 device error!]
 
 ---------------------------------------------------------------
 

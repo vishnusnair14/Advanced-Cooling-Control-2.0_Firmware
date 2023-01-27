@@ -77,7 +77,7 @@ void Init_DRCM1_IEM() {
     normalBeep(4500, 4, 250);
   }
   else { 
-    Serial.println(F("P206"));  // P204: "DRCM#1 device error!"
+    Serial.println(F("P204"));  // P204: "DRCM#1 device error!"
   }
 }
 
@@ -91,7 +91,7 @@ void Init_DRCM2_IEM() {
   DRCM2.pinMode(NOCP0, OUTPUT);
   DRCM2.pinMode(NOCP1, OUTPUT);
   DRCM2.pinMode(NOCP2, OUTPUT);
-  Serial.println(F("P204"));   // P204: "DRCM2 I/O pins initiated"
+  Serial.println(F("P206"));   // P204: "DRCM2 I/O pins initiated"
   if (DRCM2.begin()){
     Serial.println(F("P205"));  // P205: "Successfully initialised DRCM module #2"
     normalBeep(4500, 4, 250);

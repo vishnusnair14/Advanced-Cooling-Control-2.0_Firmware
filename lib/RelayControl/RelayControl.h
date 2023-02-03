@@ -1,8 +1,8 @@
 /*
 [Part of ADVANCED COOLING CONTROL ALGORITHM]
 
-Controlling algorithm for temperature based Relay Control Systems
------------------------------------------------------------------
+Control algorithm for Temperature based Relay Control Systems
+-------------------------------------------------------------
 
 Controls device control relay modules. These systems are used for controlling (ON/OFF)
 thermoelectric devices, coolants, exhausts etc... based only on thermal sensor values.
@@ -40,7 +40,7 @@ Mainly it control two independent RCS(s), named RCS-1, RCS-2.
 #define TRIGG_RELAY LOW
 #define RELEASE_RELAY HIGH
 
-// temperature constants:
+// temperature state constants:
 #define LOW_TEMP 14
 #define MEDIAN_TEMP 22
 #define HIGH_TEMP 32
@@ -67,7 +67,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
   else if(_deviceID == NOCP0) _deviceName = "R26";
   else if(_deviceID == NOCP1) _deviceName = "R27"; 
   else if(_deviceID == NOCP2) _deviceName = "R28"; 
- // else no ID match [ID: R0]
+ // else if no ID matches [?set=ID:=R0]
   else _deviceName = "R0";
 
   // @_state: ON/1/HIGH
@@ -97,7 +97,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
 }
 
 // [RCS-1] Thermoelectric devices control:
-// (for NTC-S1 @peltier cool side)
+// (for NTC-S1 @peltier cool side thermistor)
 void PELTIER_CONTROL(int _temp1) {
   if(_temp1<LOW_TEMP) {
     relaySwitchControl(PELTIER1, RELEASE_RELAY);

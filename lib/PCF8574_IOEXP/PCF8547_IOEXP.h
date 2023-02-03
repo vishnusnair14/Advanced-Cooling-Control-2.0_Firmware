@@ -1,19 +1,19 @@
 /*
 [Part of ADVANCED COOLING CONTROL ALGORITHM]
 
-PCF8574 I/O expander external arduino compatible library
---------------------------------------------------------
+PCF8574 I/O expander, external arduino UNO compatible library
+-------------------------------------------------------------
 
 Setup library for PCF8574 I/O Expansion modules.
 Each module controls two different 'Device Relay Control Blocks',
-(controls two PCF8574 modues, total (8*2) 16 I/O pins).
+~(controls two PCF8574 modues, total (8*2) 16 I/O pins).
 
 (I2C Protocol based) For scanning address of the available 
 connected PCF8574 I2C modules and to initiate its pins in
 arduino environment.
 
 [vishnus_technologies (C) 2022]
-----------------------------------------------------------
+-----------------------------------------------------------------
 */
 
 #include <PCF8574.h>

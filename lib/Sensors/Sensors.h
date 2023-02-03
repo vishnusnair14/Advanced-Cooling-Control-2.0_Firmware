@@ -1,8 +1,8 @@
 /*
 [Part of ADVANCED COOLING CONTROL ALGORITHM]
 
-Temperature control library
----------------------------
+Temperature sensor control library
+----------------------------------
 
 Sensor control library for all types of temperature sensors. Contain several 
 functions for converting analog signals and converting it into temperature 

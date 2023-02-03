@@ -49,7 +49,6 @@ Mainly it control two independent RCS(s), named RCS-1, RCS-2.
 // RELAY SWITCHING CONTROL SECTION (RSCS):
 void relaySwitchControl(uint8_t _deviceID, bool _state) {
   String _deviceName = "";
-
   // check with DRCM #1 pin ID's:
   if(_deviceID == PE1) _deviceName = "R11";
   else if(_deviceID == PE2) _deviceName = "R12";

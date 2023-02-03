@@ -36,7 +36,7 @@ String serialData;
 ntc10k NTC10K;
 ds18b20 DS18B20;
 
-// UNO INITIAL SETUP BLOCK:
+// UNO INITIAL SETUP:
 void setup() {
   digitalWrite(SOFT_REST_PIN, HIGH);
   delay(100);
@@ -61,8 +61,9 @@ void setup() {
   pinMode(CT2, INPUT);
   pinMode(SOFT_REST_PIN, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.println("M101");   // M101: "MCU I/O pin modes initiated"
-/*
+  Serial.println(F("M101"));   // M101: "MCU I/O pin modes initiated"
+  delay(1000);
+
   // initialize DRCM1 device & pins:
   init_DRCM1_IEM();
   delay(1000);
@@ -70,7 +71,7 @@ void setup() {
   // initialize DRCM2 device & pins:
   init_DRCM2_IEM();
   delay(1000);
-  */
+  
 
   if(DS18B20.init_sensor()) {
     Serial.println(F("M102"));   // M102: "DS18B20 sensors initiated"
@@ -98,7 +99,7 @@ void loop() {
       digitalWrite(SOFT_REST_PIN, LOW);
     }
 
-    // decodes pwm value from software:
+    // decodes pwm value :
     // ex data:[s245] or [s122] | [pwm: 245, 122]
     if(serialData[0] == 's') {
       pwm = serialData.substring(1).toInt();

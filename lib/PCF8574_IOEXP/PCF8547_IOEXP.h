@@ -4,9 +4,9 @@
 PCF8574 I/O expander external arduino compatible library
 --------------------------------------------------------
 
-Setting up library for two PCF8574 modules.
+Setup library for PCF8574 I/O Expansion modules.
 Each module controls two different 'Device Relay Control Blocks',
-total (8*2) 16 I/O pins.
+(controls two PCF8574 modues, total (8*2) 16 I/O pins).
 
 (I2C Protocol based) For scanning address of the available 
 connected PCF8574 I2C modules and to initiate its pins in
@@ -54,8 +54,8 @@ set your PCF8574's address accordingly:
 --------------------------------------- */
 
 // define PCF8574's module addresses below:
-#define DRCM1_IOEXP_ADDR 0x20
-#define DRCM2_IOEXP_ADDR 0x21
+#define DRCM1_IOEXP_ADDR 0x20  // DRCM #1
+#define DRCM2_IOEXP_ADDR 0x21  // DRCM #2
 
 // Initiates PCF8574 class
 PCF8574 DRCM1(DRCM1_IOEXP_ADDR);

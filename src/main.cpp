@@ -85,7 +85,7 @@ void setup() {
 
 
 void loop() {
-  if(Serial.available()>0){
+  if(Serial.available()>0) {
     // reads arduino serial buffer until '\n':
     serialData = Serial.readStringUntil('\n');
 

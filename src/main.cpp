@@ -21,6 +21,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #include <Sensors.h>
 #include <DeviceControl.h>
 
+
 #define PBT1 A0
 #define PBT2 A1
 #define CT1 A2

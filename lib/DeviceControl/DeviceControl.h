@@ -12,6 +12,8 @@ for each device controls.
 [vishnus_technologies (C) 2022]
 --------------------------------------------
 */
+
+#include <Arduino.h>
 #include <RelayControl.h>
 
 // [RCS-1] Thermoelectric devices control:

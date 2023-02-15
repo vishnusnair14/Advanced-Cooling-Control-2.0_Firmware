@@ -1,3 +1,17 @@
+/*
+[Part of ADVANCED COOLING CONTROL ALGORITHM]
+
+Independent device control algorithm
+------------------------------------
+
+Library for controlling different types independent
+devices. Like thermo-devices, cooling devices, Exhausts
+and many more... This algorithm contains several function 
+for each device controls.
+
+[vishnus_technologies (C) 2022]
+--------------------------------------------
+*/
 #include <RelayControl.h>
 
 // [RCS-1] Thermoelectric devices control:

@@ -19,8 +19,8 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #include <Arduino.h>
 #include <PCF8547_IOEXP.h>
 #include <Sensors.h>
+#include <RelayControl.h>
 #include <DeviceControl.h>
-
 
 #define PBT1 A0
 #define PBT2 A1
@@ -118,7 +118,7 @@ void loop() {
   }
 
   TEMP1 = NTC10K.GetTemperature(analogRead(PBT2));  // NTC10K-S1 @peltier cool side [for thermoele.dev control]
-  TEMP2 = NTC10K.GetTemperature(analogRead(PBT1));  // NTC10K-S2 @peltier hot side [for coolant fan control]
+  TEMP2 = NTC10K.GetTemperature(analogRead(PBT1));  // NTC10K-S2 @peltier hot side [for radiator fan control]
   TEMP3 = NTC10K.GetTemperature(analogRead(CT1));
   TEMP4 = NTC10K.GetTemperature(analogRead(CT2));
 
@@ -126,5 +126,6 @@ void loop() {
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
   PELTIER_CONTROL(TEMP1);
+  RAD_FAN_CONTROL(TEMP2);
   delay(1000);
 }

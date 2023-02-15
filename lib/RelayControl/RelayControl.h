@@ -40,6 +40,7 @@ Mainly it control two independent RCS(s), named RCS-1, RCS-2.
 #define TRIGG_RELAY LOW
 #define RELEASE_RELAY HIGH
 
+
 // temperature state constants:
 #define LOW_TEMP 14
 #define MEDIAN_TEMP 22
@@ -58,6 +59,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
   else if(_deviceID == RAD_FAN) _deviceName = "R16";
   else if(_deviceID == HSWP) _deviceName = "R17";
   else if(_deviceID == CSWP) _deviceName = "R18";
+
   // check with DRCM #2 pin ID's:
   else if(_deviceID == CEXAH1_IN) _deviceName = "R21";
   else if(_deviceID == CEXAH1_OUT) _deviceName = "R22";
@@ -67,13 +69,24 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
   else if(_deviceID == NOCP0) _deviceName = "R26";
   else if(_deviceID == NOCP1) _deviceName = "R27"; 
   else if(_deviceID == NOCP2) _deviceName = "R28"; 
+
  // else if no ID matches [?set=ID:=R0]
   else _deviceName = "R0";
 
-  // @_state: ON/1/HIGH
+  uint8_t _DEVNAM_UINT8 = _deviceName.substring(1, 2).toInt(); 
+
+  // @_state: 1/HIGH
   if(_state == TRIGG_RELAY) {
-    if(digitalRead(_deviceID)!=_state) {
-      digitalWrite(_deviceID, TRIGG_RELAY);
+    if(digitalRead(_deviceID) != _state) {
+      if(_DEVNAM_UINT8 > 10 and _DEVNAM_UINT8 < 19) {
+        DRCM1.digitalWrite(_deviceID, TRIGG_RELAY); 
+      }
+      else if(_DEVNAM_UINT8 > 20 and _DEVNAM_UINT8 < 29) {
+        DRCM2.digitalWrite(_deviceID, TRIGG_RELAY); 
+      }
+      else {
+        digitalWrite(_deviceID, TRIGG_RELAY);
+      }
       Serial.print(_deviceName);
       Serial.println(F(":An#"));
     }
@@ -82,10 +95,19 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
       Serial.println(F(":Bn#"));
     }
   }
-  // @_state: OFF/0/LOW
+
+  // @_state: 0/LOW
   else if(_state == RELEASE_RELAY) {
     if(digitalRead(_deviceID) != _state) {
-      digitalWrite(_deviceID, RELEASE_RELAY);
+      if(_DEVNAM_UINT8 > 10 and _DEVNAM_UINT8 < 19) {
+        DRCM1.digitalWrite(_deviceID, RELEASE_RELAY); 
+      }
+      else if(_DEVNAM_UINT8 > 20 and _DEVNAM_UINT8 < 29) {
+        DRCM2.digitalWrite(_deviceID, RELEASE_RELAY); 
+      }
+      else {
+        digitalWrite(_deviceID, RELEASE_RELAY);
+      }
       Serial.print(_deviceName);
       Serial.println(":Xf#");
     }
@@ -95,34 +117,3 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
     }
   }
 }
-
-// [RCS-1] Thermoelectric devices control:
-// (for NTC-S1 @peltier cool side thermistor)
-void PELTIER_CONTROL(int _temp1) {
-  if(_temp1<LOW_TEMP) {
-    relaySwitchControl(PELTIER1, RELEASE_RELAY);
-    relaySwitchControl(PELTIER2, RELEASE_RELAY);
-  }
-  else if(_temp1>MEDIAN_TEMP) { 
-    relaySwitchControl(PELTIER1, TRIGG_RELAY);
-    relaySwitchControl(PELTIER2, RELEASE_RELAY);
-  }
-  else if(_temp1>HIGH_TEMP) {
-    relaySwitchControl(PELTIER1, TRIGG_RELAY);
-    relaySwitchControl(PELTIER2, TRIGG_RELAY);
-  }
-}
-
-
-/*
-// [RCS-2] Coolant fans control:
-// (for NTC-S2 @peltier hot side)
-void RAD_FAN_CONTROL(int _temp0) {
-  if(_temp0<20) {
-    relaySwitchControl(FLOOD_COOLANT_FAN, RELEASE_RELAY);
-  }
-  else if(_temp0>45) {
-    relaySwitchControl(FLOOD_COOLANT_FAN, TRIGG_RELAY);
-  }
-}
-*/

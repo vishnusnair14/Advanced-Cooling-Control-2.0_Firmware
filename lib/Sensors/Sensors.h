@@ -39,26 +39,27 @@ float tempC, DTEMP_X, DTEMP_Y, DTEMP_Z, DTEMP_E;
 double T0 = 25 + 273.15;
 
 
-// NTC10k sensor class:
+// NTC10K SENSOR CLASS:
 class ntc10k {
   public : bool init_sensor() {
     return EXIT_SUCCESS;
   }
 
+  // converts volts to temp for 10k thermistor:
   public : float GetTemperature(float Tdata) {
     float Ctemp, RT, VR, ln;
-    Tdata = (5.00/1023.00)*Tdata;
-    VR = VCC-Tdata;
-    RT = Tdata/(VR/R);
-    ln = log(RT/RT0);
-    Ctemp = (1/((ln/B)+(1/T0)));
-    Ctemp = Ctemp-273.15;  
+    Tdata = (5.00 / 1023.00) * Tdata;
+    VR = VCC - Tdata;
+    RT = Tdata / (VR / R);
+    ln = log(RT / RT0);
+    Ctemp = (1 / ((ln / B) + (1 / T0)));
+    Ctemp = Ctemp - 273.15;  
     return Ctemp;
   }
 };
 
 
-// DS18B20 1-wire sensor class:
+// DSB18B20 [1-WIRE] SENSOR CLASS:
 class ds18b20 {
   public : bool init_sensor() {
     sensors.begin();

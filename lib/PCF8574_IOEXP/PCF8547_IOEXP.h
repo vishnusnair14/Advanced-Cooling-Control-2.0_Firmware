@@ -41,7 +41,7 @@ arduino environment.
 #define NOCP2 P7
 
 /* ------------------------------------
-set your PCF8574's address accordingly:
+change your PCF8574's address accordingly:
 [PCF8574 8-BIT ADDRESS TABLE]
 1. 000 = 0x20 (by default)
 2. 001 = 0x21
@@ -53,9 +53,9 @@ set your PCF8574's address accordingly:
 8. 111 = 0x27
 --------------------------------------- */
 
-// define PCF8574's module addresses below:
+// define PCF8574 addresses:
 #define DRCM1_IOEXP_ADDR 0x20  // DRCM #1
-#define DRCM2_IOEXP_ADDR 0x21  // DRCM #2
+#define DRCM2_IOEXP_ADDR 0x39  // DRCM #2
 
 // Initiates PCF8574 class
 PCF8574 DRCM1(DRCM1_IOEXP_ADDR);

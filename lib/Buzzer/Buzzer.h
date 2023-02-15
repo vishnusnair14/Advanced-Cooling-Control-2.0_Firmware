@@ -13,7 +13,7 @@ contains several buzzer beep modes.
 
 #include <Arduino.h>
 
-// connect buzzer signal pin to arduino pin D4 
+// connect buzzer signal pin to UNO D4 
 #define buzzerPin 4
 
 void normalBeep(uint16_t _freq, uint8_t _duration, uint16_t _interval);

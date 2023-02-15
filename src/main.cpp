@@ -19,14 +19,13 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #include <Arduino.h>
 #include <PCF8547_IOEXP.h>
 #include <Sensors.h>
-#include <RelayControl.h>
+#include <DeviceControl.h>
 
 #define PBT1 A0
 #define PBT2 A1
 #define CT1 A2
 #define CT2 A3
-//#define MAIN_POWER 3
-#define EXHFAN_PWM_PIN 9
+#define AC_BFAN_PWM_PIN 9
 #define SOFT_REST_PIN 12
 
 uint8_t pwm = 0;
@@ -39,11 +38,13 @@ ds18b20 DS18B20;
 // UNO INITIAL SETUP:
 void setup() {
   digitalWrite(SOFT_REST_PIN, HIGH);
+
   delay(100);
 
-  pinMode(EXHFAN_PWM_PIN, OUTPUT);
+  pinMode(AC_BFAN_PWM_PIN, OUTPUT);
   delay(100);
-  analogWrite(EXHFAN_PWM_PIN, 0);
+  analogWrite(AC_BFAN_PWM_PIN, 0);
+  relaySwitchControl(AC_BLOWERFAN, RELEASE_RELAY);
   delay(100);
   
   // initalize serial monitor:
@@ -99,12 +100,19 @@ void loop() {
       digitalWrite(SOFT_REST_PIN, LOW);
     }
 
-    // decodes pwm value :
+    // decodes pwm value:
     // ex data:[s245] or [s122] | [pwm: 245, 122]
     if(serialData[0] == 's') {
       pwm = serialData.substring(1).toInt();
-      //Serial.print("PWM: ") Serial.println(pwm);
-      analogWrite(EXHFAN_PWM_PIN, pwm);
+      if(pwm == 0) { 
+        // Serial.print("PWM: ") Serial.println(pwm);
+        relaySwitchControl(AC_BLOWERFAN, RELEASE_RELAY);
+        analogWrite(AC_BFAN_PWM_PIN, pwm);
+      }
+      else if(pwm != 0) {
+        relaySwitchControl(AC_BLOWERFAN, TRIGG_RELAY);
+        analogWrite(AC_BFAN_PWM_PIN, pwm);
+      }
     }
   }
 
@@ -112,6 +120,7 @@ void loop() {
   TEMP2 = NTC10K.GetTemperature(analogRead(PBT1));  // NTC10K-S2 @peltier hot side [for coolant fan control]
   TEMP3 = NTC10K.GetTemperature(analogRead(CT1));
   TEMP4 = NTC10K.GetTemperature(analogRead(CT2));
+
   // prints final temperature data on serial ~[in encoded format]:
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   

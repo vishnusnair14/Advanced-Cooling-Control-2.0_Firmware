@@ -1,42 +1,79 @@
-main.cpp
-1. M101 -> "[MCU I/O pin modes initiated]"
-2. M102 -> "[DS18B20 sensors initiated]"
-3. M103 -> "[unable to initiated DS18B20]"
+
+/* ********************************************* */
+*** MESSAGES CODES (M CODES) EXPLANATION & DEF. ***
+/* ********************************************* */
+
+# main.cpp
+
+void setup() {
+    M104 -> [Serial Communication initiated]
+    M101 -> [MCU I/O pin modes initiated]
+    M102 -> [DS18B20 sensors initiated]
+    M103 -> [unable to initiated DS18B20]
+}
 
 ---------------------------------------------------------------
 
-PCF8547_IOEXP.h
-1. P201 -> [Initializing PCF8574 module]
-2. P202 -> [Successfully initialised DRCM module #1]
-3. P203 -> [DRCM1 I/O pins initiated]
-4. P204 -> [DRCM2 I/O pins initiated]
-5. P205 -> [Successfully initialised DRCM module #2]
-6. P206 -> [DRCM#1 device error!]
-7. P207 -> [DRCM#2 device error!]
+# PCF8547_IOEXP.h
+
+(P201 -> [***])
+void init_I2C_RELAY1_IEM() {
+    #P203 -> [I2C_RELAY #1 I/O pins initiated]
+    #P202 -> [Successfully initialised I2C_RELAY module #1]
+    #P204 -> [I2C_RELAY #1 device error!]
+    #P208 -> [I2C_RELAY #1 is Connected]
+    #P209 -> [I2C_RELAY #1 is Disconnected]
+}
+
+void init_I2C_RELAY2_IEM() {
+    #P206 -> [I2C_RELAY #2 I/O pins initiated] 
+    #P205 -> [Successfully initialised I2C_RELAY module #2]
+    #P207 -> [I2C_RELAY #2 device error!]
+    #P210 -> [I2C_RELAY #2 is Connected]
+    #P211 -> [I2C_RELAY #2 is Disconnected]
+}
 
 ---------------------------------------------------------------
 
-Sensors.h
-1. S101 -> "[Auto initialised DS18B20 sensors]"
-2. S102 -> "[Pre-initialised DS18B20 sensors]"
+# Sensors.h
+
+dsb18b20 :: bool init_sensor() {
+    S102 -> [Pre-initialised DS18B20 sensors]
+}
+ds18b20 :: void GetTempByAddr() {
+    S101 -> [Auto initialised DS18B20 sensors]
+}
 
 ---------------------------------------------------------------
 
 RelayControl.h
-1. R11 -> "MAIN POWER"
-2. R12 -> "PELTIER 1"
-3. R13 -> "PELTIER 2"
-4. R14 -> "FLOOD COOLANT FAN"
-5. R15 -> "CS PUMP"
-6. R16 -> "HS PUMP"
-7. R17 -> "CABIN_EXHAUST1"
-8. R18 -> "CABIN_EXHAUST2"
-9. R0 -> "Undefined device"
 
-1. A  -> "switched ON"
-2. B -> "already switched ON"
-3. X -> "switched OFF"
-4. Y -> "already switched OFF"
+void relaySwitchControl(uint8_t _deviceID, bool _state) {
+    #R0  -> [Undefined device]
 
-EX: R11#A / R11#Y
+    #R11 -> [PELTIER 1]
+    #R12 -> [PELTIER 2]
+    #R13 -> [PELTIER 3]
+    #R14 -> [PELTIER 4]
+    #R15 -> [AC BLOWER FAN]
+    #R16 -> [RADIATOR FAN]
+    #R17 -> [HS WATER PUMP]
+    #R18 -> [CS WATER PUMP]
+
+    #R21 -> [CABIN EXHAUST1 IN]
+    #R22 -> [CABIN EXHAUST1 OUT]
+    #R23 -> [CABIN EXHAUST2 IN]
+    #R24 -> [CABIN EXHAUST2 OUT]
+    #R25 -> [CABIN2 LIGHT]
+    #R26 -> NOCP0
+    #R27 -> NOCP1
+    #R28 -> NOCP2
+
+
+    An -> [switched ON]
+    Bn -> [already switched ON]  
+    Xf -> [switched OFF]
+    Yf -> [already switched OFF]
+
+    [example]: R11#An / R11#Yf
 ---------------------------------------------------------------

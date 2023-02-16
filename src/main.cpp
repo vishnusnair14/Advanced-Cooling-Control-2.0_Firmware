@@ -19,7 +19,8 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #include <Arduino.h>
 #include <PCF8547_IOEXP.h>
 #include <Sensors.h>
-#include <DeviceControl.h>
+#include <Control.h>
+#include <SerialDecode.h>
 
 #define PCEB1 A0   // PCEB - Peltier CoolEnd Block
 #define PCEB2 A1
@@ -28,7 +29,6 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define SOFT_REST_PIN 8
 #define AC_BFAN_PWM_PIN 9
 
-uint8_t pwm = 0;
 double TEMP1, TEMP2, TEMP3, TEMP4;
 String serialData;
 
@@ -64,12 +64,12 @@ void setup() {
   Serial.println(F("M101"));   // M101: "MCU I/O pin modes initiated"
   delay(1000);
 
-  // initialize DRCM1 device & pins:
-  init_DRCM1_IEM();
+  // initialize I2C_RELAY1 device & pins:
+  init_I2C_RELAY1_IEM();
   delay(1000);
 
   // initialize DRCM2 device & pins:
-  init_DRCM2_IEM();
+  init_I2C_RELAY2_IEM();
   delay(1000);
   
 
@@ -82,10 +82,9 @@ void setup() {
     delay(750);
   }
 }
-
-
+ 
 void loop() {
-  if(Serial.available()>0) {
+  if(Serial.available() > 0) {
     // reads arduino serial buffer until '\n':
     serialData = Serial.readStringUntil('\n');
 
@@ -98,28 +97,15 @@ void loop() {
     else if(serialData == "r") {
       digitalWrite(SOFT_REST_PIN, LOW);
     }
-    else if(serialData == "1") {
-      relaySwitchControl(PELTIER1, TRIGG_RELAY);
-    }
-    else if(serialData == "2") {
-      relaySwitchControl(PELTIER1, RELEASE_RELAY);
-    }
 
-    // decodes pwm value:
-    // ex data:[s245] or [s122] | [pwm: 245, 122]
+    // decodes devices commands:
+    if(serialData[0] == 'D') {
+      deviceCommandDecode(serialData);
+    } 
+    
+    // decode pwm value:
     if(serialData[0] == 's') {
-      pwm = serialData.substring(1).toInt();
-      if(pwm == 0) { 
-        // Serial.print("PWM: ") Serial.println(pwm);
-        relaySwitchControl(AC_BLOWERFAN, RELEASE_RELAY);
-        analogWrite(AC_BFAN_PWM_PIN, pwm);
-      }
-      else if(pwm > 0) {
-        if(DRCM1.read(AC_BLOWERFAN) == HIGH) {
-          relaySwitchControl(AC_BLOWERFAN, TRIGG_RELAY); 
-        }
-        analogWrite(AC_BFAN_PWM_PIN, pwm);
-      }
+      pwmDecode(serialData, AC_BFAN_PWM_PIN);
     }
   }
 
@@ -131,7 +117,7 @@ void loop() {
   // prints final temperature data on serial ~[in encoded format]:
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
- //PELTIER_CONTROL(TEMP1);
- //RAD_FAN_CONTROL(TEMP2);
+  //PELTIER_CONTROL(TEMP1);
+  //RAD_FAN_CONTROL(TEMP2);
   delay(1000);
 }

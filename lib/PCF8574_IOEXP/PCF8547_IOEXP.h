@@ -18,24 +18,25 @@ arduino environment.
 
 #include <PCF8574.h>
 #include <Wire.h>
-#include <Buzzer.h>
 
-// pin mapping [PCF8574 1: DRCM#1]
-#define PE1 0
-#define PE2 1
-#define PE3 2
-#define PE4 3
-#define AC_BFAN 4
-#define RAD_FAN 5
-#define HSWP 6
-#define CSWP 7
+//#include <Buzzer.h>
 
-// pin mapping [PCF8574 2: DRCM#2]
-#define CEXAH1_IN 0
-#define CEXAH1_OUT 1
-#define CEXAH2_IN 2
-#define CEXAH2_OUT 3
-#define CAB_LIGHT 4
+// pin mapping [PCF8574 1: I2C_RELAY #1]
+#define PELTIER1 0
+#define PELTIER2 1
+#define PELTIER3 2
+#define PELTIER4 3
+#define AC_BLOWERFAN 4
+#define RADIATOR_FAN 5
+#define HS_WATERPUMP 6
+#define CS_WATERPUMP 7
+
+// pin mapping [PCF8574 2: I2C_RELAY #2]
+#define CABINEXHAUST1_IN 0
+#define CABINEXHAUST1_OUT 1
+#define CABINEXHAUST2_IN 2
+#define CABINEXHAUST2_OUT 3
+#define CABIN2_LIGHT 4
 #define NOCP0 5
 #define NOCP1 6
 #define NOCP2 7
@@ -54,51 +55,63 @@ change your PCF8574's address accordingly:
 --------------------------------------- */
 
 // define PCF8574 addresses:
-#define DRCM1_IOEXP_ADDR 0x21  // DRCM #1
-#define DRCM2_IOEXP_ADDR 0x39  // DRCM #2
+#define DRCM1_IOEXP_ADDR 0x20  // I2C_RELAY  #1
+#define DRCM2_IOEXP_ADDR 0x38  // I2C_RELAY  #2
 
 // Initiates PCF8574 class
-PCF8574 DRCM1(DRCM1_IOEXP_ADDR);
-PCF8574 DRCM2(DRCM2_IOEXP_ADDR);
+PCF8574 I2C_RELAY1(DRCM1_IOEXP_ADDR);
+PCF8574 I2C_RELAY2(DRCM2_IOEXP_ADDR);
 
-// pin initiator/beginner for PCF8574 [DRCM#1]:
-void init_DRCM1_IEM() {
-  pinMode(PE1, OUTPUT);
-  pinMode(PE2, OUTPUT);
-  pinMode(PE3, OUTPUT);
-  pinMode(PE4, OUTPUT);
-  pinMode(AC_BFAN, OUTPUT);
-  pinMode(RAD_FAN, OUTPUT);
-  pinMode(HSWP, OUTPUT);
-  pinMode(CSWP, OUTPUT);
-  Serial.println(F("P203"));   // P203: "DRCM1 I/O pins initiated"
-  if (DRCM1.begin()) { 
-    Serial.println(F("P202"));   // P202: "Successfully initialised DRCM module #1"
-    //normalBeep(4500, 4, 250);
+// pin initiator/beginner for PCF8574 [I2C_RELAY #1]:
+void init_I2C_RELAY1_IEM() {
+  pinMode(PELTIER1, OUTPUT);
+  pinMode(PELTIER2, OUTPUT);
+  pinMode(PELTIER3, OUTPUT);
+  pinMode(PELTIER4, OUTPUT);
+  pinMode(AC_BLOWERFAN, OUTPUT);
+  pinMode(RADIATOR_FAN, OUTPUT);
+  pinMode(HS_WATERPUMP, OUTPUT);
+  pinMode(CS_WATERPUMP, OUTPUT);
+  Serial.println(F("P203"));   // P203: "I2C_RELAY #1 I/O pins initiated"
+  if(I2C_RELAY1.begin()) { 
+    Serial.println(F("P202"));   // P202: "Successfully initialised I2C_RELAY #1"
   }
-  else { 
-    Serial.println(F("P204"));  // P204: "DRCM#1 device error!"
-  }
-  DRCM1.selectAll();
+  else if(!I2C_RELAY1.begin()) {
+    Serial.println(F("P204"));  // P204: "I2C_RELAY #1 device error!"
   }
 
-// pin initiator/beginner for PCF8574 [DRCM#2]:
-void init_DRCM2_IEM() {
-  pinMode(CEXAH1_IN, OUTPUT);
-  pinMode(CEXAH1_OUT, OUTPUT);
-  pinMode(CEXAH2_IN, OUTPUT);
-  pinMode(CEXAH2_OUT, OUTPUT);
-  pinMode(CAB_LIGHT, OUTPUT);
+  if(I2C_RELAY1.isConnected()) {
+    Serial.println(F("P208")); // P208: "I2C RELAY #1 is connected"
+  }
+  else if(!I2C_RELAY1.isConnected()) {
+    Serial.println(F("P209")); // P209: "I2C RELAY #1 is disconnected"
+  }
+  I2C_RELAY1.selectAll();   // initially release all relays [I2C_RELAY #1]
+  }
+
+// pin initiator/beginner for PCF8574 [I2C_RELAY #2]:
+void init_I2C_RELAY2_IEM() {
+  pinMode(CABINEXHAUST1_IN, OUTPUT);
+  pinMode(CABINEXHAUST1_OUT, OUTPUT);
+  pinMode(CABINEXHAUST2_IN, OUTPUT);
+  pinMode(CABINEXHAUST2_OUT, OUTPUT);
+  pinMode(CABIN2_LIGHT, OUTPUT);
   pinMode(NOCP0, OUTPUT);
   pinMode(NOCP1, OUTPUT);
   pinMode(NOCP2, OUTPUT);
-  Serial.println(F("P206"));   // P204: "DRCM2 I/O pins initiated"
-  if (DRCM2.begin()){
-    Serial.println(F("P205"));  // P205: "Successfully initialised DRCM module #2"
-    normalBeep(4500, 4, 250);
+  Serial.println(F("P206"));   // P204: "I2C_RELAY2 I/O pins initiated"
+  if(I2C_RELAY2.begin()){
+    Serial.println(F("P205"));  // P205: "Successfully initialised I2C_RELAY #2"
   }
   else {
-    Serial.println(F("P207"));  // P204: "DRCM#2 device error!"
+    Serial.println(F("P207"));  // P204: "I2C_RELAY #2 device error!"
   }
-  DRCM2.selectAll();
+
+  if(I2C_RELAY2.isConnected()) {
+    Serial.println(F("P210")); // P208: "I2C RELAY #2 is connected"
+  }
+  else if(!I2C_RELAY2.isConnected()) {
+    Serial.println(F("P211")); // P209: "I2C RELAY #2 is disconnected"
+  }
+  I2C_RELAY2.selectAll();   //initially release all relays [I2C_RELAY #2]
   }

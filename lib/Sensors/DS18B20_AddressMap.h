@@ -10,7 +10,6 @@ DS18B20 sensor address definition block
 
 #include <Arduino.h>
 
-
 /*  *** DON'T ALTER ANYTHING EXCEPT ADDRESSES, DON'T DEFINE FUNCTION OR CODE HERE ***
     *** DEFINE DS18B20 DEVICE ADDRESS ONLY ***    */
 

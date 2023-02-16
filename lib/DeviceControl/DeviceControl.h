@@ -17,6 +17,10 @@ in controlling particularly that devices)
 #include <Arduino.h>
 #include <RelayControl.h>
 
+/* temperature state constants:
+LOW_TEMP 14
+MEDIAN_TEMP 22
+HIGH_TEMP 32  */
 
 // [RCS-1] Thermoelectric devices control:
 // (for NTC-S1 @peltier cool side thermistor)

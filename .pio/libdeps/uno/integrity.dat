@@ -1,5 +1,5 @@
-milesburton/DallasTemperature@^3.11.0
-SPI
-miguelbalboa/MFRC522@^1.4.10
 paulstoffregen/OneWire@^2.3.7
-xreef/PCF8574 library@^2.3.4
+miguelbalboa/MFRC522@^1.4.10
+SPI
+milesburton/DallasTemperature@^3.11.0
+robtillaart/PCF8574@^0.3.8

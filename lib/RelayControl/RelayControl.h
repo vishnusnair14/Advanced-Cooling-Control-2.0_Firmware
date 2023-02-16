@@ -73,47 +73,86 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
  // else if no ID matches [?set=ID:=R0]
   else _deviceName = "R0";
 
-  uint8_t _DEVNAM_UINT8 = _deviceName.substring(1, 2).toInt(); 
+  int _DEVNAM_UINT8 = _deviceName.substring(1, 3).toInt(); 
 
-  // @_state: 1/HIGH
-  if(_state == TRIGG_RELAY) {
-    if(digitalRead(_deviceID) != _state) {
-      if(_DEVNAM_UINT8 > 10 and _DEVNAM_UINT8 < 19) {
-        DRCM1.digitalWrite(_deviceID, TRIGG_RELAY); 
+  if(_DEVNAM_UINT8 > 10 and _DEVNAM_UINT8 < 19) {
+    // @_state: 1/HIGH
+    if(_state == TRIGG_RELAY) {
+      if(DRCM1.read(_deviceID) != _state) {
+        DRCM1.write(_deviceID, TRIGG_RELAY); 
+        Serial.print(_deviceName);
+        Serial.println(F(":An#"));
       }
-      else if(_DEVNAM_UINT8 > 20 and _DEVNAM_UINT8 < 29) {
-        DRCM2.digitalWrite(_deviceID, TRIGG_RELAY); 
+      else if(DRCM1.read(_deviceID) == _state) {
+        Serial.print(_deviceName);
+        Serial.println(F(":Bn#"));
       }
-      else {
-        digitalWrite(_deviceID, TRIGG_RELAY);
-      }
-      Serial.print(_deviceName);
-      Serial.println(F(":An#"));
     }
-    else if(digitalRead(_deviceID) == _state) {
-      Serial.print(_deviceName);
-      Serial.println(F(":Bn#"));
+    // @_state: 0/LOW
+    else if(_state == RELEASE_RELAY) {
+      if(DRCM1.read(_deviceID) != _state) {
+        DRCM1.write(_deviceID, RELEASE_RELAY); 
+        Serial.print(_deviceName);
+        Serial.println(":Xf#");
+      }
+      else if(DRCM1.read(_deviceID) == _state) {
+        Serial.print(_deviceName);
+        Serial.println(":Yf#");
+      }
+    }
+  }
+  
+  else if(_DEVNAM_UINT8 > 20 and _DEVNAM_UINT8 < 29) {
+    // @_state: 1/HIGH
+    if(_state == TRIGG_RELAY) {
+      if(DRCM2.read(_deviceID) != _state) {
+        DRCM2.write(_deviceID, TRIGG_RELAY); 
+        Serial.print(_deviceName);
+        Serial.println(F(":An#"));
+      }
+      else if(DRCM2.read(_deviceID) == _state) {
+        Serial.print(_deviceName);
+        Serial.println(F(":Bn#"));
+      }
+    }
+    // @_state: 0/LOW
+    else if(_state == RELEASE_RELAY) {
+      if(DRCM2.read(_deviceID) != _state) {
+        DRCM2.write(_deviceID, RELEASE_RELAY); 
+        Serial.print(_deviceName);
+        Serial.println(":Xf#");
+      }
+      else if(DRCM2.read(_deviceID) == _state) {
+        Serial.print(_deviceName);
+        Serial.println(":Yf#");
+      }
     }
   }
 
-  // @_state: 0/LOW
-  else if(_state == RELEASE_RELAY) {
-    if(digitalRead(_deviceID) != _state) {
-      if(_DEVNAM_UINT8 > 10 and _DEVNAM_UINT8 < 19) {
-        DRCM1.digitalWrite(_deviceID, RELEASE_RELAY); 
+  else {
+        // @_state: 1/HIGH
+    if(_state == TRIGG_RELAY) {
+      if(digitalRead(_deviceID) != _state) {
+        digitalWrite(_deviceID, TRIGG_RELAY); 
+        Serial.print(_deviceName);
+        Serial.println(F(":An#"));
       }
-      else if(_DEVNAM_UINT8 > 20 and _DEVNAM_UINT8 < 29) {
-        DRCM2.digitalWrite(_deviceID, RELEASE_RELAY); 
+      else if(digitalRead(_deviceID) == _state) {
+        Serial.print(_deviceName);
+        Serial.println(F(":Bn#"));
       }
-      else {
-        digitalWrite(_deviceID, RELEASE_RELAY);
-      }
-      Serial.print(_deviceName);
-      Serial.println(":Xf#");
     }
-    else if(digitalRead(_deviceID) == _state) {
-      Serial.print(_deviceName);
-      Serial.println(":Yf#");
+    // @_state: 0/LOW
+    else if(_state == RELEASE_RELAY) {
+      if(digitalRead(_deviceID) != _state) {
+        digitalWrite(_deviceID, RELEASE_RELAY); 
+        Serial.print(_deviceName);
+        Serial.println(":Xf#");
+      }
+      else if(digitalRead(_deviceID) == _state) {
+        Serial.print(_deviceName);
+        Serial.println(":Yf#");
+      }
     }
   }
 }

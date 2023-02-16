@@ -19,15 +19,14 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #include <Arduino.h>
 #include <PCF8547_IOEXP.h>
 #include <Sensors.h>
-#include <RelayControl.h>
 #include <DeviceControl.h>
 
-#define PBT1 A0
-#define PBT2 A1
-#define CT1 A2
-#define CT2 A3
+#define PCEB1 A0   // PCEB - Peltier CoolEnd Block
+#define PCEB2 A1
+#define PHEB1 A2   // PHEB - Peltier HotEnd Block
+#define PHEB2 A3
+#define SOFT_REST_PIN 8
 #define AC_BFAN_PWM_PIN 9
-#define SOFT_REST_PIN 12
 
 uint8_t pwm = 0;
 double TEMP1, TEMP2, TEMP3, TEMP4;
@@ -39,7 +38,6 @@ ds18b20 DS18B20;
 // UNO INITIAL SETUP:
 void setup() {
   digitalWrite(SOFT_REST_PIN, HIGH);
-
   delay(100);
 
   pinMode(AC_BFAN_PWM_PIN, OUTPUT);
@@ -57,10 +55,10 @@ void setup() {
   delay(2500);
 
   // MCU pin mode definition:
-  pinMode(PBT1, INPUT);
-  pinMode(PBT2, INPUT);
-  pinMode(CT1, INPUT);
-  pinMode(CT2, INPUT);
+  pinMode(PCEB1, INPUT);
+  pinMode(PCEB2, INPUT);
+  pinMode(PHEB1, INPUT);
+  pinMode(PHEB2, INPUT);
   pinMode(SOFT_REST_PIN, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.println(F("M101"));   // M101: "MCU I/O pin modes initiated"
@@ -100,6 +98,12 @@ void loop() {
     else if(serialData == "r") {
       digitalWrite(SOFT_REST_PIN, LOW);
     }
+    else if(serialData == "1") {
+      relaySwitchControl(PELTIER1, TRIGG_RELAY);
+    }
+    else if(serialData == "2") {
+      relaySwitchControl(PELTIER1, RELEASE_RELAY);
+    }
 
     // decodes pwm value:
     // ex data:[s245] or [s122] | [pwm: 245, 122]
@@ -110,22 +114,24 @@ void loop() {
         relaySwitchControl(AC_BLOWERFAN, RELEASE_RELAY);
         analogWrite(AC_BFAN_PWM_PIN, pwm);
       }
-      else if(pwm != 0) {
-        relaySwitchControl(AC_BLOWERFAN, TRIGG_RELAY);
+      else if(pwm > 0) {
+        if(DRCM1.read(AC_BLOWERFAN) == HIGH) {
+          relaySwitchControl(AC_BLOWERFAN, TRIGG_RELAY); 
+        }
         analogWrite(AC_BFAN_PWM_PIN, pwm);
       }
     }
   }
 
-  TEMP1 = NTC10K.GetTemperature(analogRead(PBT2));  // NTC10K-S1 @peltier cool side [for thermoele.dev control]
-  TEMP2 = NTC10K.GetTemperature(analogRead(PBT1));  // NTC10K-S2 @peltier hot side [for radiator fan control]
-  TEMP3 = NTC10K.GetTemperature(analogRead(CT1));
-  TEMP4 = NTC10K.GetTemperature(analogRead(CT2));
+  TEMP1 = NTC10K.GetTemperature(analogRead(PCEB1));  // @peltier cool side [for thermoele.dev control]
+  //TEMP2 = NTC10K.GetTemperature(analogRead(PCEB2));  
+  TEMP3 = NTC10K.GetTemperature(analogRead(PHEB1));  // @peltier hot side [for radiator fan control]
+  TEMP4 = NTC10K.GetTemperature(analogRead(PHEB2));
 
   // prints final temperature data on serial ~[in encoded format]:
   Serial.println((String)"T"+TEMP1+"A"+TEMP2+"B"+TEMP3+"C"+TEMP4+"D");
   
-  PELTIER_CONTROL(TEMP1);
-  RAD_FAN_CONTROL(TEMP2);
+ //PELTIER_CONTROL(TEMP1);
+ //RAD_FAN_CONTROL(TEMP2);
   delay(1000);
 }

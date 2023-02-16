@@ -11,9 +11,9 @@ uint8_t pwm = 0;
 uint8_t dev_ID;
 
 /* *** DEVICE COMMANDS DECODE SECTION *** */
-void deviceCommandDecode(String _serialData) {
+void DecodeDeviceCommand(String _serialData) {
   // @switching state: ON
-  if(_serialData[1] == 'O') {
+  if(_serialData[1] == 'N') {
     dev_ID = _serialData.substring(2).toInt();
     switch (dev_ID) {
       case 11:
@@ -40,7 +40,7 @@ void deviceCommandDecode(String _serialData) {
       case 18:
         relaySwitchControl(CS_WATERPUMP, TRIGG_RELAY);
         break;
-      // I2C_RELAY #2 ID's starts here:
+      // I2C_RELAY #1 ID's starts here:
       case 21:
         relaySwitchControl(CABINEXHAUST1_IN, TRIGG_RELAY);
         break;
@@ -98,7 +98,7 @@ void deviceCommandDecode(String _serialData) {
       case 18:
         relaySwitchControl(CS_WATERPUMP, RELEASE_RELAY);
         break;
-      // I2C_RELAY #2 ID's starts here:
+      // I2C_RELAY #1 ID's starts here:
       case 21:
         relaySwitchControl(CABINEXHAUST1_IN, RELEASE_RELAY);
         break;
@@ -131,7 +131,7 @@ void deviceCommandDecode(String _serialData) {
 }
 
 /* *** PWM DECODE SECTION *** */
-void pwmDecode(String _serialData, uint8_t ACBFanPwmPin) {
+void DecodePwmValue(String _serialData, uint8_t ACBFanPwmPin) {
   pwm = _serialData.substring(1).toInt();
   if(pwm == 0) { 
     // Serial.print("PWM: ") Serial.println(pwm);

@@ -100,12 +100,12 @@ void loop() {
 
     // decodes devices commands:
     if(serialData[0] == 'D') {
-      deviceCommandDecode(serialData);
+      DecodeDeviceCommand(serialData);
     } 
     
     // decode pwm value:
     if(serialData[0] == 's') {
-      pwmDecode(serialData, AC_BFAN_PWM_PIN);
+      DecodePwmValue(serialData, AC_BFAN_PWM_PIN);
     }
   }
 

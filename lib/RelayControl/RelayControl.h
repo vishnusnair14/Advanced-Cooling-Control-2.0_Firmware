@@ -28,26 +28,24 @@ Mainly it control two independent RCS(s), named RCS-1, RCS-2.
 // RELAY SWITCHING CONTROL SECTION (RSCS):
 void relaySwitchControl(uint8_t _deviceID, bool _state) {
   String _relayID = "";
-  // check with DRCM #1 pin ID's:
-  if(_deviceID == 0) _relayID = "R11";
-  else if(_deviceID == 1) _relayID = "R12";
-  else if(_deviceID == 2) _relayID = "R13";
-  else if(_deviceID == 3) _relayID = "R14";
-  else if(_deviceID == 4) _relayID = "R15";
-  else if(_deviceID == 5) _relayID = "R16";
-  else if(_deviceID == 6) _relayID = "R17";
-  else if(_deviceID == 7) _relayID = "R18";
-
-  // check with DRCM #2 pin ID's:
-  else if(_deviceID == 0) _relayID = "R21";
-  else if(_deviceID == 1) _relayID = "R22";
-  else if(_deviceID == 2) _relayID = "R23";
-  else if(_deviceID == 3) _relayID = "R24";
-  else if(_deviceID == 4) _relayID = "R25";
-  else if(_deviceID == 5) _relayID = "R26";
-  else if(_deviceID == 6) _relayID = "R27"; 
-  else if(_deviceID == 7) _relayID = "R28"; 
-
+    // check with I2C_RELAY #1 pin ID's:
+    if(_deviceID == 11) { _relayID = "R11"; _deviceID = 0; }
+    else if(_deviceID == 12) { _relayID = "R12"; _deviceID = 1; }
+    else if(_deviceID == 13) { _relayID = "R13"; _deviceID = 2; }
+    else if(_deviceID == 14) { _relayID = "R14"; _deviceID = 3; }
+    else if(_deviceID == 15) { _relayID = "R15"; _deviceID = 4; }
+    else if(_deviceID == 16) { _relayID = "R16"; _deviceID = 5; }
+    else if(_deviceID == 17) { _relayID = "R17"; _deviceID = 6; }
+    else if(_deviceID == 18) {_relayID = "R18"; _deviceID = 7; }
+   // check with I2C_RELAY #2 pin ID's:
+    else if(_deviceID == 21) { _relayID = "R21"; _deviceID = 0; }
+    else if(_deviceID == 22) { _relayID = "R22"; _deviceID = 1; }
+    else if(_deviceID == 23) { _relayID = "R23"; _deviceID = 2; }
+    else if(_deviceID == 24) { _relayID = "R24"; _deviceID = 3; }
+    else if(_deviceID == 25) { _relayID = "R25"; _deviceID = 4; }
+    else if(_deviceID == 26) { _relayID = "R26"; _deviceID = 5; }
+    else if(_deviceID == 27) { _relayID = "R27"; _deviceID = 6; }
+    else if(_deviceID == 28) { _relayID = "R28"; _deviceID = 7; }
  // else if no ID matches [?set=ID:=R0]
   else _relayID = "R0";
 

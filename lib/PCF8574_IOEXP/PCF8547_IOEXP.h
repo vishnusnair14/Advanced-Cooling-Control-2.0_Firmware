@@ -22,24 +22,24 @@ arduino environment.
 //#include <Buzzer.h>
 
 // pin mapping [PCF8574 1: I2C_RELAY #1]
-#define PELTIER1 0
-#define PELTIER2 1
-#define PELTIER3 2
-#define PELTIER4 3
-#define AC_BLOWERFAN 4
-#define RADIATOR_FAN 5
-#define HS_WATERPUMP 6
-#define CS_WATERPUMP 7
+#define PELTIER1 11
+#define PELTIER2 12
+#define PELTIER3 13
+#define PELTIER4 14
+#define AC_BLOWERFAN 15
+#define RADIATOR_FAN 16
+#define HS_WATERPUMP 17
+#define CS_WATERPUMP 18
 
 // pin mapping [PCF8574 2: I2C_RELAY #2]
-#define CABINEXHAUST1_IN 0
-#define CABINEXHAUST1_OUT 1
-#define CABINEXHAUST2_IN 2
-#define CABINEXHAUST2_OUT 3
-#define CABIN2_LIGHT 4
-#define NOCP0 5
-#define NOCP1 6
-#define NOCP2 7
+#define CABINEXHAUST1_IN 21
+#define CABINEXHAUST1_OUT 22
+#define CABINEXHAUST2_IN 23
+#define CABINEXHAUST2_OUT 24
+#define CABIN2_LIGHT 25
+#define NOCP0 26
+#define NOCP1 27
+#define NOCP2 28
 
 /* ------------------------------------
 change your PCF8574's address accordingly:
@@ -55,12 +55,12 @@ change your PCF8574's address accordingly:
 --------------------------------------- */
 
 // define PCF8574 addresses:
-#define DRCM1_IOEXP_ADDR 0x20  // I2C_RELAY  #1
-#define DRCM2_IOEXP_ADDR 0x38  // I2C_RELAY  #2
+#define I2C_RELAY1_ADDR 0x20  // I2C_RELAY  #1
+#define I2C_RELAY2_ADDR 0x38  // I2C_RELAY  #2
 
 // Initiates PCF8574 class
-PCF8574 I2C_RELAY1(DRCM1_IOEXP_ADDR);
-PCF8574 I2C_RELAY2(DRCM2_IOEXP_ADDR);
+PCF8574 I2C_RELAY1(I2C_RELAY1_ADDR);
+PCF8574 I2C_RELAY2(I2C_RELAY2_ADDR);
 
 // pin initiator/beginner for PCF8574 [I2C_RELAY #1]:
 void init_I2C_RELAY1_IEM() {

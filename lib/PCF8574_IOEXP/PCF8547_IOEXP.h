@@ -56,7 +56,7 @@ change your PCF8574's address accordingly:
 #define I2C_RELAY1_ADDR 0x25  // I2C RELAY #1
 #define I2C_RELAY2_ADDR 0x38  // I2C RELAY #2
 
-// Initiates PCF8574 class
+// Initiates PCF8574 class constructors
 PCF8574 pcf8574(0x20);
 PCF8574 I2C_RELAY1(I2C_RELAY1_ADDR);
 PCF8574 I2C_RELAY2(I2C_RELAY2_ADDR);

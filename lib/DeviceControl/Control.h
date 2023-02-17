@@ -15,7 +15,7 @@ in controlling particularly that devices)
 */
 
 #include <Arduino.h>
-#include <RelayControl.h>
+#include <I2C_RelayControl.h>
 
 /* temperature state constants:
 LOW_TEMP 14

@@ -65,14 +65,9 @@ void setup() {
   delay(1000);
 
   // initialize I2C_RELAY1 device & pins:
-  init_I2C_RELAY1_IEM();
-  delay(1000);
+  init_I2C_RELAY();
 
-  // initialize DRCM2 device & pins:
-  init_I2C_RELAY2_IEM();
-  delay(1000);
-  
-
+  /*
   if(DS18B20.init_sensor()) {
     Serial.println(F("M102"));   // M102: "DS18B20 sensors initiated"
     delay(750);
@@ -80,7 +75,7 @@ void setup() {
   else { 
     Serial.println(F("M103"));  // M103: "Unable to initiated DS18B20"
     delay(750);
-  }
+  } */
 }
  
 void loop() {
@@ -89,10 +84,10 @@ void loop() {
     serialData = Serial.readStringUntil('\n');
 
     if(serialData == "A") {
-      digitalWrite(LED_BUILTIN, HIGH);
+      relaySwitchControl(LED_BUILTIN, TRIGG_RELAY);
     }
     else if(serialData == "a") {
-      digitalWrite(LED_BUILTIN, LOW);
+      relaySwitchControl(LED_BUILTIN, RELEASE_RELAY);
     }
     else if(serialData == "r") {
       digitalWrite(SOFT_REST_PIN, LOW);
@@ -104,8 +99,8 @@ void loop() {
     } 
     
     // decode pwm value:
-    if(serialData[0] == 's') {
-      DecodePwmValue(serialData, AC_BFAN_PWM_PIN);
+    if(serialData[0] == 'S') {
+      DecodePwmValue(serialData, 4, AC_BFAN_PWM_PIN);
     }
   }
 

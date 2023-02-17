@@ -17,28 +17,27 @@ arduino environment.
 */
 
 #include <PCF8574.h>
-#include <Wire.h>
-#include <Buzzer.h>
+//#include <Buzzer.h>
 
-// pin mapping [PCF8574 1: I2C_RELAY #1]
-#define PELTIER1 0
-#define PELTIER2 1
-#define PELTIER3 2
-#define PELTIER4 3
-#define AC_BLOWERFAN 4
-#define RADIATOR_FAN 5
-#define HS_WATERPUMP 6
-#define CS_WATERPUMP 7
+// device ID's [PCF8574 1: I2C_RELAY #1]
+#define PELTIER1 101
+#define PELTIER2 102
+#define PELTIER3 103
+#define PELTIER4 104
+#define AC_BLOWERFAN 105
+#define RADIATOR_FAN 106
+#define HS_WATERPUMP 107
+#define CS_WATERPUMP 108
 
-// pin mapping [PCF8574 2: I2C_RELAY #2]
-#define CABINEXHAUST1_IN 0
-#define CABINEXHAUST1_OUT 1
-#define CABINEXHAUST2_IN 2
-#define CABINEXHAUST2_OUT 3
-#define CABIN2_LIGHT 4
-#define NOCP0 5
-#define NOCP1 6
-#define NOCP2 7
+// device ID's [PCF8574 2: I2C_RELAY #2]
+#define CABINEXHAUST1_IN 201
+#define CABINEXHAUST1_OUT 202
+#define CABINEXHAUST2_IN 203
+#define CABINEXHAUST2_OUT 204
+#define CABIN2_LIGHT 205
+#define NOCP0 206
+#define NOCP1 207
+#define NOCP2 208
 
 /* ------------------------------------
 change your PCF8574's address accordingly:
@@ -54,25 +53,21 @@ change your PCF8574's address accordingly:
 --------------------------------------- */
 
 // define PCF8574 addresses:
-#define I2C_RELAY1_ADDR 0x20  // I2C_RELAY  #1
-#define I2C_RELAY2_ADDR 0x38  // I2C_RELAY  #2
+#define I2C_RELAY1_ADDR 0x25  // I2C RELAY #1
+#define I2C_RELAY2_ADDR 0x38  // I2C RELAY #2
 
 // Initiates PCF8574 class
+PCF8574 pcf8574(0x20);
 PCF8574 I2C_RELAY1(I2C_RELAY1_ADDR);
 PCF8574 I2C_RELAY2(I2C_RELAY2_ADDR);
 
-// pin initiator/beginner for PCF8574 [I2C_RELAY #1]:
-void init_I2C_RELAY1_IEM() {
-  pinMode(PELTIER1, OUTPUT);
-  pinMode(PELTIER2, OUTPUT);
-  pinMode(PELTIER3, OUTPUT);
-  pinMode(PELTIER4, OUTPUT);
-  pinMode(AC_BLOWERFAN, OUTPUT);
-  pinMode(RADIATOR_FAN, OUTPUT);
-  pinMode(HS_WATERPUMP, OUTPUT);
-  pinMode(CS_WATERPUMP, OUTPUT);
-  Serial.println(F("P203"));   // P203: "I2C_RELAY #1 I/O pins initiated"
-  if(I2C_RELAY1.begin()) { 
+void INIT();
+
+// pin initiator/beginner for PCF8574 [I2C_RELAY #1, #2]:
+void init_I2C_RELAY() {
+  INIT();
+  // I2C_RELAY #1
+  if(I2C_RELAY1.begin()) {
     Serial.println(F("P202"));   // P202: "Successfully initialised I2C_RELAY #1"
   }
   else if(!I2C_RELAY1.begin()) {
@@ -86,23 +81,12 @@ void init_I2C_RELAY1_IEM() {
     Serial.println(F("P209")); // P209: "I2C RELAY #1 is disconnected"
   }
   I2C_RELAY1.selectAll();   // initially release all relays [I2C_RELAY #1]
-  }
 
-// pin initiator/beginner for PCF8574 [I2C_RELAY #2]:
-void init_I2C_RELAY2_IEM() {
-  pinMode(CABINEXHAUST1_IN, OUTPUT);
-  pinMode(CABINEXHAUST1_OUT, OUTPUT);
-  pinMode(CABINEXHAUST2_IN, OUTPUT);
-  pinMode(CABINEXHAUST2_OUT, OUTPUT);
-  pinMode(CABIN2_LIGHT, OUTPUT);
-  pinMode(NOCP0, OUTPUT);
-  pinMode(NOCP1, OUTPUT);
-  pinMode(NOCP2, OUTPUT);
-  Serial.println(F("P206"));   // P204: "I2C_RELAY2 I/O pins initiated"
-  if(I2C_RELAY2.begin()){
+  // I2C_RELAY #2 
+  if(I2C_RELAY2.begin()) {
     Serial.println(F("P205"));  // P205: "Successfully initialised I2C_RELAY #2"
   }
-  else {
+  else if(!I2C_RELAY2.begin()) {
     Serial.println(F("P207"));  // P204: "I2C_RELAY #2 device error!"
   }
 
@@ -113,4 +97,8 @@ void init_I2C_RELAY2_IEM() {
     Serial.println(F("P211")); // P209: "I2C RELAY #2 is disconnected"
   }
   I2C_RELAY2.selectAll();   //initially release all relays [I2C_RELAY #2]
+}
+
+void INIT() {
+  pcf8574.begin();
 }

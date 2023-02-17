@@ -33,7 +33,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
     else if(_deviceID == 12) { _relayID = "R12"; _deviceID = 1; }
     else if(_deviceID == 13) { _relayID = "R13"; _deviceID = 2; }
     else if(_deviceID == 14) { _relayID = "R14"; _deviceID = 3; }
-    else if(_deviceID == 15) { _relayID = "R15"; _deviceID = 4; }
+    else if(_deviceID == 15) { _relayID = "R15"; _deviceID = 4; }   
     else if(_deviceID == 16) { _relayID = "R16"; _deviceID = 5; }
     else if(_deviceID == 17) { _relayID = "R17"; _deviceID = 6; }
     else if(_deviceID == 18) {_relayID = "R18"; _deviceID = 7; }

@@ -85,7 +85,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
       }
     }
   }
-  /*
+
   else if(IO_PinBatch > 20 and IO_PinBatch < 29) {   // for I2C_RELAY #2 I/O pins. ID:[20 - 29]
     // @_state: 1/HIGH
     if(_state == TRIGG_RELAY) {
@@ -112,7 +112,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
       }
     }
   }
-*/
+
   else if(IO_PinBatch >= 0 and IO_PinBatch <= 13) {   // for arduino digital pins. Pins:[0 - 13]
         // @_state: 1/HIGH
     if(_state == TRIGG_RELAY) {

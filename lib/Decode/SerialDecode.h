@@ -40,6 +40,12 @@ void DecodeDeviceCommand(String _serialData) {
       case CS_WATERPUMP:
         relaySwitchControl(CS_WATERPUMP, TRIGG_RELAY);
         break;
+      /*
+      case 109:
+        I2C_RELAY1.selectNone();
+        break;
+      */
+      
       // I2C_RELAY #1 ID's starts here:
       case CABINEXHAUST1_IN:
         relaySwitchControl(CABINEXHAUST1_IN, TRIGG_RELAY);
@@ -65,6 +71,11 @@ void DecodeDeviceCommand(String _serialData) {
       case NOCP2:
         relaySwitchControl(NOCP2, TRIGG_RELAY);
         break;
+      /*
+      case 209:
+        I2C_RELAY2.selectNone();
+        break;
+      */
       default:
         // define M-code later
         break;
@@ -98,6 +109,12 @@ void DecodeDeviceCommand(String _serialData) {
       case CS_WATERPUMP:
         relaySwitchControl(CS_WATERPUMP, RELEASE_RELAY);
         break;
+      /*
+      case 109:
+        I2C_RELAY1.selectAll();
+        break;
+      */
+
       // I2C_RELAY #1 ID's starts here:
       case CABINEXHAUST1_IN:
         relaySwitchControl(CABINEXHAUST1_IN, RELEASE_RELAY);
@@ -123,6 +140,11 @@ void DecodeDeviceCommand(String _serialData) {
       case NOCP2:
         relaySwitchControl(NOCP2, RELEASE_RELAY);
         break;
+      /*
+      case 209:
+        I2C_RELAY2.selectAll();
+        break;
+      */
       default:
         // define M-code later
         break;
@@ -131,17 +153,19 @@ void DecodeDeviceCommand(String _serialData) {
 }
 
 /* *** PWM DECODE SECTION *** */
-void DecodePwmValue(String _serialData, uint8_t I2C_RELAY_PIN, uint8_t pwmPin) {
+void DecodePwmValue(String _serialData, uint8_t I2C_RELAY_PIN, uint8_t PWM_PIN) {
   pwm = _serialData.substring(1).toInt();
   if(pwm == 0) { 
     // Serial.print("PWM: ") Serial.println(pwm);
-    relaySwitchControl(AC_BLOWERFAN, RELEASE_RELAY);
-    analogWrite(pwmPin, pwm);
+    if(I2C_RELAY1.read(I2C_RELAY_PIN) != RELEASE_RELAY ) {
+      relaySwitchControl(AC_BLOWERFAN, RELEASE_RELAY);
+    }
+    analogWrite(PWM_PIN, pwm);
   }
   else if(pwm > 0) {
-    if(I2C_RELAY1.read(I2C_RELAY_PIN) == HIGH) {
+    if(I2C_RELAY1.read(I2C_RELAY_PIN) == RELEASE_RELAY) {
       relaySwitchControl(AC_BLOWERFAN, TRIGG_RELAY); 
     }
-    analogWrite(pwmPin, pwm);
+    analogWrite(PWM_PIN, pwm);
   }
 }

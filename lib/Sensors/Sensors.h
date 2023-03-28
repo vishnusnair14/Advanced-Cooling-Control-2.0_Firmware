@@ -41,6 +41,7 @@ double T0 = 25 + 273.15;
 
 // NTC10K SENSOR CLASS:
 class ntc10k {
+  // init.s ntc10k sensor:
   public : bool init_sensor() {
     return EXIT_SUCCESS;
   }

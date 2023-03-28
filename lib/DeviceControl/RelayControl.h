@@ -1,8 +1,8 @@
 /*
 [Part of ADVANCED COOLING CONTROL ALGORITHM]
 
-Control algorithm for Temperature based Relay Control Systems
--------------------------------------------------------------
+Intelli control algorithm for Relay Control Systems
+---------------------------------------------------
 
 Controls device control relay modules. These systems are used for controlling (ON/OFF)
 thermoelectric devices, coolants, exhausts etc... based only on thermal sensor values.
@@ -39,7 +39,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
   else if(_deviceID == 106) { _relayID = "R16"; _devicePin = 5; }
   else if(_deviceID == 107) { _relayID = "R17"; _devicePin = 6; }
   else if(_deviceID == 108) { _relayID = "R18"; _devicePin = 7; } 
-  // check with I2C_RELAY #2 pin ID's:
+  // check match with I2C_RELAY #2 pin ID's:
   else if(_deviceID == 201) { _relayID = "R21"; _devicePin = 0; }
   else if(_deviceID == 202) { _relayID = "R22"; _devicePin = 1; }
   else if(_deviceID == 203) { _relayID = "R23"; _devicePin = 2; }
@@ -57,15 +57,15 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
     _relayID = "R0";
   }
 
-  int IO_PinBatch = _relayID.substring(1, 3).toInt(); 
+  uint8_t IO_PinBatch = _relayID.substring(1, 3).toInt(); 
 
-  if(IO_PinBatch > 10 and IO_PinBatch < 19) {    // for I2C_RELAY #1 I/O pins. ID:[10 - 19]
+  if(IO_PinBatch >= 11 and IO_PinBatch <= 18) {    // for I2C_RELAY #1 I/O pins. ID:[10 - 19]
     // @_state: 1/HIGH
     if(_state == TRIGG_RELAY) {
       if(I2C_RELAY1.read(_devicePin) != _state) {
         I2C_RELAY1.write(_devicePin, TRIGG_RELAY); 
         Serial.print(_relayID);
-        Serial.println(F(":An#"));
+        Serial.println(F(":An#"));  // decode command (for softwareDecodeEngine).
       }
       else if(I2C_RELAY1.read(_devicePin) == _state) {
         Serial.print(_relayID);

@@ -20,6 +20,7 @@ arduino environment.
 //#include <Buzzer.h>
 
 // device ID's [PCF8574 1: I2C_RELAY #1]
+// # component-name ID
 #define PELTIER1 101
 #define PELTIER2 102
 #define PELTIER3 103
@@ -53,13 +54,14 @@ change your PCF8574's address accordingly:
 --------------------------------------- */
 
 // define PCF8574 addresses:
-#define I2C_RELAY1_ADDR 0x25  // I2C RELAY #1
-#define I2C_RELAY2_ADDR 0x38  // I2C RELAY #2
+#define I2C_DEF_ADDR 0x20
+#define I2C_RELEXP1_ADDR 0x25
+#define I2C_RELEXP2_ADDR 0x38
 
 // Initiates PCF8574 class constructors
-PCF8574 pcf8574(0x20);
-PCF8574 I2C_RELAY1(I2C_RELAY1_ADDR);
-PCF8574 I2C_RELAY2(I2C_RELAY2_ADDR);
+PCF8574 pcf8574(I2C_DEF_ADDR);
+PCF8574 I2C_RELAY1(I2C_RELEXP1_ADDR);
+PCF8574 I2C_RELAY2(I2C_RELEXP2_ADDR);
 
 void INIT();
 

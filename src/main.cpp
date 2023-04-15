@@ -35,7 +35,7 @@ String serialData;
 ntc10k NTC10K;
 ds18b20 DS18B20;
 
-// UNO INITIAL SETUP:
+// MP INITIAL SETUP:
 void setup() {
   digitalWrite(SOFT_REST_PIN, HIGH);
   delay(100);

@@ -86,7 +86,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
     }
   }
 
-  else if(IO_PinBatch > 20 and IO_PinBatch < 29) {   // for I2C_RELAY #2 I/O pins. ID:[20 - 29]
+  else if(IO_PinBatch >= 21 and IO_PinBatch <= 28) {   // for I2C_RELAY #2 I/O pins. ID:[20 - 29]
     // @_state: 1/HIGH
     if(_state == TRIGG_RELAY) {
       if(I2C_RELAY2.read(_devicePin) != _state) {

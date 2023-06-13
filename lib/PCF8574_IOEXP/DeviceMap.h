@@ -2,9 +2,11 @@
 #include <Arduino.h>
 
 
-// @device id
-// device ID's [PCF8574 1: I2C_RELAY #1]
-// # component-name ID
+/* Device ID's of all hardware devices connceted to
+   PCF8574 expansion modules. */ 
+
+
+// [@name: I2C_RELAY #1, @address: 0x25]
 #define PELTIER1 101
 #define PELTIER2 102
 #define PELTIER3 103
@@ -14,7 +16,7 @@
 #define HS_WATERPUMP 107
 #define CS_WATERPUMP 108
 
-// device ID's [PCF8574 2: I2C_RELAY #2]
+// [@name: I2C_RELAY #2, @address: 0x38]
 #define CABINEXHAUST1_IN 201
 #define CABINEXHAUST1_OUT 202
 #define CABINEXHAUST2_IN 203

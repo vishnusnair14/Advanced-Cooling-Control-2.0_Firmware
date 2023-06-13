@@ -17,7 +17,8 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 */
 
 #include <Arduino.h>
-#include <PCF8547_IOEXP.h>
+#include <PCF8547_init.h>
+#include <DeviceMap.h>
 #include <Sensors.h>
 #include <Control.h>
 #include <SerialDecode.h>

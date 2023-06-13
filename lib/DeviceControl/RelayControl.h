@@ -48,7 +48,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
   else if(_deviceID == 206) { _relayID = "R26"; _devicePin = 5; }
   else if(_deviceID == 207) { _relayID = "R27"; _devicePin = 6; }
   else if(_deviceID == 208) { _relayID = "R28"; _devicePin = 7; }
-  // if _deviceID were arduino digital pin itself:
+  // if _deviceID were arduino digital pin:
   else if(_deviceID >= 0 and _deviceID <= 13) {
     _relayID = "R1";    // [R1: for devices conn. to arduino digital pins directly]
     _devicePin = _deviceID; 

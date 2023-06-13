@@ -4,8 +4,8 @@
 Buzzer control library
 ----------------------
 
-Arduino compatible library for external buzzers, 
-contains several buzzer beep modes.
+  Arduino compatible library for external buzzers, 
+  contains several buzzer beep modes.
 
 [vishnus_technologies (C) 2022]
 ------------------------------------------------

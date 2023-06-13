@@ -4,11 +4,11 @@
 Independent device control algorithm
 ------------------------------------
 
-Library for controlling different types independent
-devices. Like thermo-devices, cooling devices, Exhausts
-and many more... This algorithm contains several 
-function for several device controls. (Those func. helps
-in controlling particularly that devices)
+  Library for controlling different types independent
+  devices. Like thermo-devices, cooling devices, Exhausts
+  and many more... This algorithm contains several 
+  function for several device controls. (Those func. helps
+  in controlling particularly that devices)
 
 [vishnus_technologies (C) 2022]
 -------------------------------------------------------

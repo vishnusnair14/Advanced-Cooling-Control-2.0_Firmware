@@ -4,11 +4,11 @@
 Intelli control algorithm for Relay Control Systems
 ---------------------------------------------------
 
-Controls device control relay modules. These systems are used for controlling (ON/OFF)
-thermoelectric devices, coolants, exhausts etc... based only on thermal sensor values.
-Mainly it control two independent RCS(s), named RCS-1, RCS-2.
--> DRCM-1 controls all coolant fans, radiator, exhausts, based on the tempsensor-1 @A0, 
--> DRCM-2 controls all thermoelectric devices systems, based on tempsensor-2 @A1
+  Controls device control relay modules. These systems are used for controlling (ON/OFF)
+  thermoelectric devices, coolants, exhausts etc... based only on thermal sensor values.
+  Mainly it control two independent RCS(s), named RCS-1, RCS-2.
+  -> DRCM-1 controls all coolant fans, radiator, exhausts, based on the tempsensor-1 @A0, 
+  -> DRCM-2 controls all thermoelectric devices systems, based on tempsensor-2 @A1
 
 [vishnus_technologies (C) 2022]
 ---------------------------------------------------------------------------------------

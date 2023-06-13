@@ -4,13 +4,13 @@
 PCF8574 I/O expander, arduino compatible library
 -------------------------------------------------
 
-Setup library for PCF8574 I/O Expansion modules.
-Each module controls two different 'Device Relay Control Blocks',
-~(controls two PCF8574 modues, total (8*2) 16 I/O pins).
+  Setup library for PCF8574 I/O Expansion modules.
+  Each module controls two different 'Device Relay Control Blocks',
+  ~(controls two PCF8574 modues, total (8*2) 16 I/O pins).
 
-(I2C Protocol based) For scanning address of the available 
-connected PCF8574 I2C modules and to initiate its pins in
-arduino environment.
+  (I2C Protocol based) For scanning address of the available 
+  connected PCF8574 I2C modules and to initiate its pins in
+  arduino environment.
 
 [vishnus_technologies (C) 2022]
 -----------------------------------------------------------------

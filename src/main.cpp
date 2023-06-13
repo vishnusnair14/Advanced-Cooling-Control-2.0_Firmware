@@ -4,12 +4,12 @@
 ADVANCED COOLING CONTROL ALGORITHM (For Ender-3 PRO)
 ----------------------------------------------------
 
-This is an intelligent algorithm, specially desgined for 3d printers
-(Ender-3 PRO). This algorithm adds more saftey to your printer.By
-installing this software/algorithm you can leave your printer unattended.
-It has several advanced saftey features. You can run your printer for
-high temperature prints also. Has advanced saftey for the stepper motor
-too, also for the print head. Make sures motor looses not steps. Cool :)
+  This is an intelligent algorithm, specially desgined for 3d printers
+  (Ender-3 PRO). This algorithm adds more saftey to your printer.By
+  installing this software/algorithm you can leave your printer unattended.
+  It has several advanced saftey features. You can run your printer for
+  high temperature prints also. Has advanced saftey for the stepper motor
+  too, also for the print head. Make sures motor looses not steps. Cool :)
 
 [vishnus_technologies (C) 2022]
 [20-DECEMBER-2022 08:46PM]

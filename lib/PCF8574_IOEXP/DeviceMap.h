@@ -1,9 +1,16 @@
+/*
+[Part of ADVANCED COOLING CONTROL ALGORITHM]
+
+  Device ID's of all hardware devices connceted to
+  PCF8574 expansion modules. 
+
+[vishnus_technologies (C) 2022]
+--------------------------------------------
+*/
 
 #include <Arduino.h>
 
 
-/* Device ID's of all hardware devices connceted to
-   PCF8574 expansion modules. */ 
 
 
 // [@name: I2C_RELAY #1, @address: 0x25]

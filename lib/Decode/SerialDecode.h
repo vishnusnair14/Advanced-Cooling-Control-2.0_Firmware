@@ -162,8 +162,8 @@ void DecodeDevCmd(String _serialData) {
 
 /* *** PWM DECODE SECTION *** */
 
-// Decodes PWM commands and convert pwmVal value from serial readbuffer,
-// and write to respective PWM_PIN
+// Decodes PWM commands and convert pwmVal value from serial 
+// readbuffer and write to respective PWM_PIN
 void DecodePwmVal(String _serialData, uint8_t I2C_PIN, uint8_t PWM_PIN) {
   pwmVal = _serialData.substring(1).toInt();
 

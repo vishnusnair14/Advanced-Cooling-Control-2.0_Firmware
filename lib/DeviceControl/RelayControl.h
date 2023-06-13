@@ -28,7 +28,7 @@ Intelli control algorithm for Relay Control Systems
 // RELAY SWITCHING CONTROL SECTION (RSCS):
 void relaySwitchControl(uint8_t _deviceID, bool _state) {
   String _relayID = "";
-  uint8_t _devicePin;
+  uint8_t _devicePin = -1;
 
   // check match with I2C_RELAY #1 pin ID's:
   if(_deviceID == 101) { _relayID = "R11"; _devicePin = 0; }   // [R11 - R18: for ]

@@ -19,6 +19,7 @@ arduino environment.
 #include <PCF8574.h>
 //#include <Buzzer.h>
 
+// @device id
 // device ID's [PCF8574 1: I2C_RELAY #1]
 // # component-name ID
 #define PELTIER1 101

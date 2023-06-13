@@ -30,7 +30,7 @@ too, also for the print head. Make sures motor looses not steps. Cool :)
 #define AC_BFAN_PWM_PIN 9
 
 double TEMP1, TEMP2, TEMP3, TEMP4;
-String serialData;
+String readBuffer;
 
 ntc10k NTC10K;
 ds18b20 DS18B20;
@@ -81,26 +81,26 @@ void setup() {
 void loop() {
   if(Serial.available() > 0) {
     // reads arduino serial buffer until '\n':
-    serialData = Serial.readStringUntil('\n');
+    readBuffer = Serial.readStringUntil('\n');
 
-    if(serialData == "A") {
+    if(readBuffer == "A") {
       relaySwitchControl(LED_BUILTIN, TRIGG_RELAY);
     }
-    else if(serialData == "a") {
+    else if(readBuffer == "a") {
       relaySwitchControl(LED_BUILTIN, RELEASE_RELAY);
     }
-    else if(serialData == "r") {
+    else if(readBuffer == "r") {
       digitalWrite(SOFT_REST_PIN, LOW);
     }
 
     // decodes devices commands:
-    if(serialData[0] == 'D') {
-      DecodeDeviceCommand(serialData);
+    if(readBuffer[0] == 'D') {
+      DecodeDevCmd(readBuffer);
     } 
     
     // decode pwm value:
-    if(serialData[0] == 'S') {
-      DecodePwmValue(serialData, 4, AC_BFAN_PWM_PIN);
+    if(readBuffer[0] == 'S') {
+      DecodePwmVal(readBuffer, 4, AC_BFAN_PWM_PIN);
     }
   }
 

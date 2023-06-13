@@ -49,3 +49,6 @@ void RAD_FAN_CONTROL(int _temp1) {
     relaySwitchControl(RADIATOR_FAN, TRIGG_RELAY);
   }
 }
+
+
+

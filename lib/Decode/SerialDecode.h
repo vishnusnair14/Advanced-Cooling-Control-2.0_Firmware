@@ -7,11 +7,15 @@
 
 #include <Arduino.h>
 
-uint8_t pwm = 0;
+uint8_t pwmVal = 0;
 uint8_t dev_ID;
 
+
 /* *** DEVICE COMMANDS DECODE SECTION *** */
-void DecodeDeviceCommand(String _serialData) {
+
+// Decodes standalone hardware control commands from serial readbuffer 
+// data and convert into hardware relay device control commands
+void DecodeDevCmd(String _serialData) {
   // @switching state: ON
   if(_serialData[1] == 'N') {
     dev_ID = _serialData.substring(2).toInt();
@@ -152,20 +156,27 @@ void DecodeDeviceCommand(String _serialData) {
   }
 }
 
+
 /* *** PWM DECODE SECTION *** */
-void DecodePwmValue(String _serialData, uint8_t I2C_RELAY_PIN, uint8_t PWM_PIN) {
-  pwm = _serialData.substring(1).toInt();
-  if(pwm == 0) { 
-    // Serial.print("PWM: ") Serial.println(pwm);
-    if(I2C_RELAY1.read(I2C_RELAY_PIN) != RELEASE_RELAY ) {
+
+// Decodes PWM commands and convert pwmVal value from serial readbuffer,
+// and write to respective PWM_PIN
+void DecodePwmVal(String _serialData, uint8_t I2C_PIN, uint8_t PWM_PIN) {
+  pwmVal = _serialData.substring(1).toInt();
+
+  if(pwmVal == 0)
+  { 
+    // Serial.print("PWM: ") Serial.println(pwmVal);
+    if(I2C_RELAY1.read(I2C_PIN) != RELEASE_RELAY ) {
       relaySwitchControl(AC_BLOWERFAN, RELEASE_RELAY);
     }
-    analogWrite(PWM_PIN, pwm);
+    analogWrite(PWM_PIN, pwmVal);
   }
-  else if(pwm > 0) {
-    if(I2C_RELAY1.read(I2C_RELAY_PIN) == RELEASE_RELAY) {
+  else if(pwmVal > 0)
+  {
+    if(I2C_RELAY1.read(I2C_PIN) == RELEASE_RELAY) {
       relaySwitchControl(AC_BLOWERFAN, TRIGG_RELAY); 
     }
-    analogWrite(PWM_PIN, pwm);
+    analogWrite(PWM_PIN, pwmVal);
   }
 }

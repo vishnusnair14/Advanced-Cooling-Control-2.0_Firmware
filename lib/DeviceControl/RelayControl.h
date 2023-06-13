@@ -30,7 +30,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
   String _relayID = "";
   uint8_t _devicePin;
 
-  // check with I2C_RELAY #1 pin ID's:
+  // check match with I2C_RELAY #1 pin ID's:
   if(_deviceID == 101) { _relayID = "R11"; _devicePin = 0; }   // [R11 - R18: for ]
   else if(_deviceID == 102) { _relayID = "R12"; _devicePin = 1; }
   else if(_deviceID == 103) { _relayID = "R13"; _devicePin = 2; }
@@ -65,7 +65,7 @@ void relaySwitchControl(uint8_t _deviceID, bool _state) {
       if(I2C_RELAY1.read(_devicePin) != _state) {
         I2C_RELAY1.write(_devicePin, TRIGG_RELAY); 
         Serial.print(_relayID);
-        Serial.println(F(":An#"));  // decode command (for softwareDecodeEngine).
+        Serial.println(F(":An#"));  // decode command (for softwareCmdDecodeEngine).
       }
       else if(I2C_RELAY1.read(_devicePin) == _state) {
         Serial.print(_relayID);

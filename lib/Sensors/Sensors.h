@@ -62,10 +62,10 @@ class ntc10k {
 
 // DSB18B20 [1-WIRE] SENSOR CLASS:
 class ds18b20 {
-  public : bool init_sensor() {
+  public : bool init_sensor(bool flg=0) {
     sensors.begin();
     DS_INIT_FLAG = true;
-    Serial.println("S102");   // S102: "Pre-initialised DS18B20 sensors"
+    if(flg==0){ Serial.println("S102"); }  // S102: "Pre-initialised DS18B20 sensors"
     return true;
   }
 
@@ -79,8 +79,9 @@ class ds18b20 {
       Serial.println((String)"D"+DTEMP_X+"X"+DTEMP_Y+"Y"+DTEMP_Z+"Z"+DTEMP_E+"E");
     }
     else {
-      init_sensor();
+      init_sensor(1);
       Serial.println(F("S101"));  // S101: "Auto initialised DS18B20 sensors"
+      GetTempByAddr();
     }
   }
 

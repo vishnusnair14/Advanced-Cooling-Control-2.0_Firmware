@@ -8,7 +8,7 @@ Buzzer control library
   contains several buzzer beep modes.
 
 [vishnus_technologies (C) 2022]
-------------------------------------------------
+--------------------------------------------------
 */
 
 #include <Arduino.h>

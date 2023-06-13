@@ -11,7 +11,7 @@ Intelli control algorithm for Relay Control Systems
   -> DRCM-2 controls all thermoelectric devices systems, based on tempsensor-2 @A1
 
 [vishnus_technologies (C) 2022]
----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 */
 
 #include <Arduino.h>

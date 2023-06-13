@@ -1,6 +1,9 @@
 /*
 [Part of ADVANCED COOLING CONTROL ALGORITHM]
 
+Serial device commands decode library
+-------------------------------------
+
 [vishnus_technologies (C) 2022]
 --------------------------------------------
 */

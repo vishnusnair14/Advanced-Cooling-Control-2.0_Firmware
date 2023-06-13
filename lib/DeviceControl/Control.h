@@ -11,7 +11,7 @@ Independent device control algorithm
   in controlling particularly that devices)
 
 [vishnus_technologies (C) 2022]
--------------------------------------------------------
+----------------------------------------------------------
 */
 
 #include <Arduino.h>

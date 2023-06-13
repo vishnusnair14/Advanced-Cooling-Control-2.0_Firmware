@@ -13,7 +13,7 @@ ADVANCED COOLING CONTROL ALGORITHM (For Ender-3 PRO)
 
 [vishnus_technologies (C) 2022]
 [20-DECEMBER-2022 08:46PM]
--------------------------------------------------------------------------
+---------------------------------------------------------------------------
 */
 
 #include <Arduino.h>

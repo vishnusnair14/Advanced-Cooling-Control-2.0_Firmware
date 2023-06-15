@@ -1,39 +1,76 @@
-main.cpp
-1. M101 -> "[MCU I/O pin modes initiated]"
-2. M102 -> "[initiated DS18B20]"
-3. M103 -> "[unable to initiated DS18B20]"
-4. M104 -> "[Serial COM started @"]
+
+/* ************************************** */
+*** MESSAGES CODES (M CODES) DEFINITION. ***
+/* ************************************** */
+
+# ./src/main.cpp
+----------------
+
+    M101 -> [MCU I/O pin modes initiated]
+    M102 -> [DS18B20 sensors initiated]
+    M103 -> [unable to initiated DS18B20]
+    M104 -> [Serial Communication initiated]
 
 ---------------------------------------------------------------
 
-PCF8547_IOEXP.h
-1. P201 -> "[Initializing PCF8574 module]"
-2. P202 -> "[Successfully initialised PCF8574 module]"
-3. P203 -> "[PCF8574 I/O pins initiated]"
-4. P204 -> "[PCF8574 device error!]"
+# ./lib/PCF8547_IOEXP/PCF8547_IOEXP.h
+-------------------------------------
+
+    P201 -> [*** NOT DEFINED ***]
+    P202 -> [Successfully initialised I2C_RELAY module #1]
+    P203 -> [I2C_RELAY #1 I/O pins initiated]
+    P204 -> [I2C_RELAY #1 device error!]
+
+    P205 -> [Successfully initialised I2C_RELAY module #2]
+    P206 -> [I2C_RELAY #2 I/O pins initiated]
+    P207 -> [I2C_RELAY #2 device error!] 
+
+    P208 -> [I2C_RELAY #1 is Connected]
+    P209 -> [I2C_RELAY #1 is Disconnected]
+
+    P210 -> [I2C_RELAY #2 is Connected]
+    P211 -> [I2C_RELAY #2 is Disconnected]
 
 ---------------------------------------------------------------
 
-Sensors.h
-1. S101 -> "[auto initialised DS18B20 sensors]"
+# ./lib/Sensors/Sensors.h
+-------------------------
+
+    S101 -> [Auto initialised DS18B20 sensors]
+    S102 -> [Pre-initialised DS18B20 sensors]
 
 ---------------------------------------------------------------
 
-RelayControl.h
-1. R11 -> "MAIN POWER"
-2. R12 -> "PELTIER 1"
-3. R13 -> "PELTIER 2"
-4. R14 -> "FLOOD COOLANT FAN"
-5. R15 -> "CS PUMP"
-6. R16 -> "HS PUMP"
-7. R17 -> "CABIN_EXHAUST1"
-8. R18 -> "CABIN_EXHAUST2"
-9. R0 -> "Undefined device"
+# ./lib/RelayControl/RelayControl.h
+-----------------------------------
 
-1. A  -> "switched ON"
-2. B -> "already switched ON"
-3. X -> "switched OFF"
-4. Y -> "already switched OFF"
+    #R0  -> [Undefined device]
+    #R11 -> [PELTIER 1]
+    #R12 -> [PELTIER 2]
+    #R13 -> [PELTIER 3]
+    #R14 -> [PELTIER 4]
+    #R15 -> [AC BLOWER FAN]
+    #R16 -> [RADIATOR FAN]
+    #R17 -> [HS WATER PUMP]
+    #R18 -> [CS WATER PUMP]
 
-EX: R11#A / R11#Y
+    #R21 -> [CABIN EXHAUST1 IN]
+    #R22 -> [CABIN EXHAUST1 OUT]
+    #R23 -> [CABIN EXHAUST2 IN]
+    #R24 -> [CABIN EXHAUST2 OUT]
+    #R25 -> [CABIN2 LIGHT]
+    #R26 -> NOCP0
+    #R27 -> NOCP1
+    #R28 -> NOCP2
+
+
+    An -> [switched ON]
+    Bn -> [already switched ON]  
+    Xf -> [switched OFF]
+    Yf -> [already switched OFF]
+
+    [example]: 
+        R11#An: [ peltier 1 has switched on ]
+        R11#Yf: [ peltier 1 has already switched off ]
+        R11#Xf: [ peltier 1 has switched off ]
 ---------------------------------------------------------------

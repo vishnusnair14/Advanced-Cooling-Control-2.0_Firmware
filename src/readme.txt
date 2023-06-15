@@ -1,6 +1,6 @@
 
 /* ********************************************* */
-*** MESSAGES CODES (M CODES) EXPLANATION & DEF. ***
+*** MESSAGES CODES (M CODES) DEFINITION. ***
 /* ********************************************* */
 
 # main.cpp
@@ -16,8 +16,8 @@ void setup() {
 
 # PCF8547_IOEXP.h
 
-(P201 -> [***])
 void init_I2C_RELAY1_IEM() {
+    (P201 -> [*** NOT DEFINED ***])
     #P203 -> [I2C_RELAY #1 I/O pins initiated]
     #P202 -> [Successfully initialised I2C_RELAY module #1]
     #P204 -> [I2C_RELAY #1 device error!]
